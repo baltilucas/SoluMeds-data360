@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Calculadora de IMC</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">calculadora de IMC</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+
+    <ion-item>
+      <ion-input label="Ingrese su Peso" placeholder="75 Kg" type="number" [(ngModel)]="peso"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Ingrese Su Altura" placeholder="170 cm" type="number" [(ngModel)]="altura"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="calcularIMC()">Calcular IMC</ion-button>
+
+  <ion-alert [isOpen]="imc !== null" header="Resultado IMC" [subHeader]="estado" [message]="mensaje"
+    [buttons]="alertButtons" (didDismiss)="imc = null"></ion-alert>
+
+</ion-content>

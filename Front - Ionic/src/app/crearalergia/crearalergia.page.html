@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Añadir Alergia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Añadir Alergia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      Selecciona la Alergia
+    </ion-card-header>
+    <ion-select [(ngModel)]="alergiaSeleccionada" placeholder="Elige una alergia">
+      <ion-select-option value="Polen">Polen</ion-select-option>
+      <ion-select-option value="Ácaros del polvo">Ácaros del polvo</ion-select-option>
+      <ion-select-option value="Látex">Látex</ion-select-option>
+      <ion-select-option value="Mariscos">Mariscos</ion-select-option>
+      <ion-select-option value="Maní">Maní</ion-select-option>
+      <ion-select-option value="Leche">Leche</ion-select-option>
+      <ion-select-option value="Huevo">Huevo</ion-select-option>
+      <ion-select-option value="Soja">Soja</ion-select-option>
+      <ion-select-option value="Gluten">Gluten</ion-select-option>
+      <ion-select-option value="Penicilina">Penicilina</ion-select-option>
+      <ion-select-option value="Picadura de abeja">Picadura de abeja</ion-select-option>
+      <ion-select-option value="Cloro">Cloro</ion-select-option>
+      <ion-select-option value="Niquel (metal)">Niquel (metal)</ion-select-option>
+      <ion-select-option value="Perfumes">Perfumes</ion-select-option>
+      <ion-select-option value="Cápsulas de gelatina">Cápsulas de gelatina</ion-select-option>
+    </ion-select>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      Selecciona la gravedad de la alergia
+    </ion-card-header>
+    <ion-select [(ngModel)]="gravedadSeleccionada" placeholder="Que tan grave?">
+      <ion-select-option value="Grave">Grave</ion-select-option>
+      <ion-select-option value="Moderado">Moderada</ion-select-option>
+      <ion-select-option value="Leve">Leve</ion-select-option>
+    </ion-select>
+  </ion-card>
+
+
+
+  <ion-button   expand="block" (click)="guardarAlergia()">Guardar Alergia</ion-button>
+
+</ion-content>

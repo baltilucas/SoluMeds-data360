@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Medidor Pulso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Medidor Pulso</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-button expand="block" (click)="iniciarContador()">Iniciar 10s</ion-button>
+
+  <div *ngIf="tiempoRestante !== null" class="ion-text-center ion-margin-top">
+    <h2>{{ tiempoRestante }}</h2>
+  </div>
+
+</ion-content>

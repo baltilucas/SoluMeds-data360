@@ -1,0 +1,24 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Clima Simulado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" class="ion-padding">
+  <h2>Clima de Hoy</h2>
+  <p>Temperatura: {{ weatherData.today.temperature }} °C</p>
+  <p>Estado: {{ weatherData.today.description }}</p>
+  <p>Humedad: {{ weatherData.today.humidity }}%</p>
+  <p>Viento: {{ weatherData.today.windSpeed }} m/s</p>
+
+  <hr>
+
+  <h2>Clima de Mañana</h2>
+  <p>Temperatura: {{ weatherData.tomorrow.temperature }} °C</p>
+  <p>Estado: {{ weatherData.tomorrow.description }}</p>
+  <p>Humedad: {{ weatherData.tomorrow.humidity }}%</p>
+  <p>Viento: {{ weatherData.tomorrow.windSpeed }} m/s</p>
+</ion-content>
