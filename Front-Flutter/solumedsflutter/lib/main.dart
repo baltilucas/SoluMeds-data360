@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solumedsflutter/tabs/ejemplo.dart';
 import 'tabs/mainpage.dart';
 import 'tabs/info.dart';
 
@@ -26,12 +27,22 @@ class NavigationExample extends StatefulWidget {
 
 class _NavigationExampleState extends State<NavigationExample> {
   int currentPageIndex = 0;
-  MainPage mainpage = MainPage();
+
+  late MainPage mainpage;
+
   Info info = Info();
+
+  Paciente paciente = Paciente();
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+  // Initialize mainpage with a callback that updates the selected tab.
+    mainpage = MainPage(onValidRut: (int idx) {
+      setState(() {
+        currentPageIndex = idx;
+      });
+    });
+
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -39,7 +50,7 @@ class _NavigationExampleState extends State<NavigationExample> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.amber,
+        indicatorColor: const Color.fromARGB(255, 255, 104, 167),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
@@ -48,61 +59,24 @@ class _NavigationExampleState extends State<NavigationExample> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
+            icon: Badge(child: Icon(Icons.history_sharp)),
+            label: 'Historial',
           ),
           NavigationDestination(
-            icon: Badge(label: Text('2'), child: Icon(Icons.messenger_sharp)),
-            label: 'Messages',
+            icon: Badge(child: Icon(Icons.people)),
+            label: 'Ejemplo',
           ),
         ],
       ),
       body: <Widget>[
-        /// Home page
+        /// Main
         mainpage,
 
-        /// Notifications page
+        /// Pagina Historial de consultas
         info,
 
         /// Messages page
-        ListView.builder(
-          reverse: true,
-          itemCount: 2,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text(
-                    'Hello',
-                    style: theme.textTheme.bodyLarge!.copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                ),
-              );
-            }
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Hi!',
-                  style: theme.textTheme.bodyLarge!.copyWith(color: theme.colorScheme.onPrimary),
-                ),
-              ),
-            );
-          },
-        ),
+        paciente,
       ][currentPageIndex],
     );
   }

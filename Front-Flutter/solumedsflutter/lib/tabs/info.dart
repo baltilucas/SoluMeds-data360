@@ -11,15 +11,15 @@ class Info extends StatelessWidget{
               Card(
                 child: ListTile(
                   leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
+                  title: Text('José Perez - 12/06/2024'),
+                  subtitle: Text('Hombre, 45 años'),
                 ),
               ),
               Card(
                 child: ListTile(
                   leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
+                  title: Text('Karina Gonzalez - 10/06/2024'),
+                  subtitle: Text('Mujer, 27 años'),
                 ),
               ),
             ],
