@@ -24,10 +24,26 @@ CREATE TABLE paciente(
     FOREIGN KEY (idNacionalidad) REFERENCES nacionalidad(idNacionalidad)
 );
 
-CREATE TABLE especialidad(
-    idEspecialidad INT PRIMARY KEY AUTO_INCREMENT,
-    nombreEspecialidad VARCHAR(100)
-);
+INSERT INTO
+    paciente (
+        nombrePaciente,
+        rut,
+        fechaNacimiento,
+        sexo,
+        direccion,
+        telefono,
+        idNacionalidad
+    )
+VALUES
+    (
+        'Cristian Valenzuela',
+        '20496709-1',
+        '2000-10-10',
+        1,
+        'Los Olivos 1234',
+        '987654321',
+        1
+    );
 
 CREATE TABLE doctor(
     idDoctor INT PRIMARY KEY AUTO_INCREMENT,
@@ -40,10 +56,37 @@ CREATE TABLE alergia(
     nombre VARCHAR(100)
 );
 
+INSERT INTO
+    alergia (nombre)
+VALUES
+    ("Polen"),
+    ("Ácaros del polvo"),
+    ("Látex"),
+    ("Mariscos"),
+    ("Maní"),
+    ("Leche"),
+    ("Huevo"),
+    ("Soja"),
+    ("Gluten"),
+    ("Penicilina"),
+    ("Picadura de abeja"),
+    ("Cloro"),
+    ("Niquel (metal)"),
+    ("Perfumes"),
+    ("Cápsulas de gelatina");
+    
 CREATE TABLE severidad(
     idSeveridad INT PRIMARY KEY AUTO_INCREMENT,
     severidad VARCHAR(50)
 );
+
+INSERT INTO
+    severidad(severidad)
+VALUES
+    ('LEVE'),
+('MODERADO'),
+('GRAVE');
+
 
 CREATE TABLE alergiapaciente(
     idPaciente INT,

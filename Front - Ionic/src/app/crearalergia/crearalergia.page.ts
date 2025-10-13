@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from "@ionic/angular";
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 @Component({
   selector: 'app-crearalergia',
@@ -42,9 +45,10 @@ export class CrearalergiaPage implements OnInit {
       return;
     }
 
-    const numeroPaciente = index + 1;
-    const url = `http://34.203.198.4:4000/api/alergias/paciente/${numeroPaciente}`;
-    const body = { gravedad: this.gravedadSeleccionada };
+    const indAlergia = index + 1;
+    const idPaciente = 1
+    const url = `http://localhost:4000/alergias/paciente/${idPaciente}`;
+    const body = { gravedad: this.gravedadSeleccionada, idAlergia: indAlergia  };
 
     this.http.post(url, body).subscribe({
       next: (res) => {

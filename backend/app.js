@@ -22,7 +22,7 @@ app.use(cors({
 
 app.use(express.json());
 
-const endpoints = ['/alergia']
+const endpoints = ['/alergia','/medicamentoReceta']
 
 app.get('/', async (req, res) => {
   try {
