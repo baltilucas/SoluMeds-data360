@@ -1,7 +1,9 @@
 import express from 'express';
 import { db } from './db.js';
 import cors from 'cors';
+import medicamentos from './rutas/medicamentos.js'
 import medicamentoRecetaRoutes from './rutas/medicamentoReceta.js';
+import alergiaspaciente from './rutas/pacienteAlergia.js';
 import alergias from './rutas/alergias.js'
 import dotenv from 'dotenv';
 dotenv.config();
@@ -22,7 +24,7 @@ app.use(cors({
 
 app.use(express.json());
 
-const endpoints = ['/alergia','/medicamentoReceta']
+const endpoints = ['/alergia','/medicamentoReceta','/alergias']
 
 app.get('/', async (req, res) => {
   try {
@@ -34,9 +36,9 @@ app.get('/', async (req, res) => {
 })
 
 app.use('/medicamentoReceta', medicamentoRecetaRoutes);
-app.use('/alergia', alergias)
-
-
+app.use('/alergiaspaciente', alergiaspaciente)
+app.use('/alergias', alergias)
+app.use('/medicamentos', medicamentos)
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);

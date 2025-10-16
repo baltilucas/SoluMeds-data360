@@ -53,7 +53,7 @@ CREATE TABLE doctor(
 
 CREATE TABLE alergia(
     idAlergia INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100)
+    nombreAlergia VARCHAR(100)
 );
 
 INSERT INTO
@@ -102,7 +102,7 @@ CREATE TABLE alergiapaciente(
 
 CREATE TABLE vacuna(
     idVacuna INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(200),
+    nombreVacuna VARCHAR(200),
     componenete VARCHAR(255)
 );
 

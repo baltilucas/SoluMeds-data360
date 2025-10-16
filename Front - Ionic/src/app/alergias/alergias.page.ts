@@ -25,11 +25,13 @@ export class AlergiasPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.http.get<any[]>(`${this.link}/alergia/paciente/1`).subscribe({
+    this.http.get<any[]>(`${this.link}/alergiaspaciente/paciente/1`).subscribe({
       next: (data) => {
         this.alergias = data.map((item, index) => ({
           id: index + 1,
-          titulo: item.idAlergia,
+          titulo: item.nombre_alergia,
+          nivel: item.severidad,
+          color: this.getColor(item.gravedad),
         }));
       },
       error: (err) => {

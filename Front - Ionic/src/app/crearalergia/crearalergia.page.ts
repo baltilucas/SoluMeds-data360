@@ -47,7 +47,7 @@ export class CrearalergiaPage implements OnInit {
 
     const indAlergia = index + 1;
     const idPaciente = 1
-    const url = `http://localhost:4000/alergias/paciente/${idPaciente}`;
+    const url = `http://localhost:4000/alergia/paciente/${idPaciente}`;
     const body = { gravedad: this.gravedadSeleccionada, idAlergia: indAlergia  };
 
     this.http.post(url, body).subscribe({
