@@ -32,4 +32,6 @@ A continuación se describen las rutas correspondientes donde estarán las aplic
 
 - GET - `/<idAlergia>`:devuelve el dato de una alergia en particular, dado por la id.
 
-- 
+- DELETE - `/<idAlergia>`: Permite borrar una determinada alergia del registro de alergias posible.
+
+- PUT - `/<idAlergia>`: 
