@@ -57,7 +57,7 @@ CREATE TABLE alergia(
 );
 
 INSERT INTO
-    alergia (nombre)
+    alergia (nombreAlergia)
 VALUES
     ("Polen"),
     ("Ácaros del polvo"),
