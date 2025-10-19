@@ -52,10 +52,6 @@ router.delete("/:idAlergia", async (req, res) => {
   try {
     const idAlergiaString = req.params.idAlergia;
 
-    if (!idAlergiaString) {
-      return res.status(404).json({ message: `Falta el id de la ${tabla[0]}`  });
-    }
-
     const idAlergia = parseInt(idAlergiaString, 10);
     if (isNaN(idAlergia)) {
       return res.status(400).json({ message: "ID inválido" });
