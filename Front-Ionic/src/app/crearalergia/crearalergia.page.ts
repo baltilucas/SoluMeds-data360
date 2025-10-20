@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from "@ionic/angular";
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import dotenv from 'dotenv';
-dotenv.config();
 
 
 @Component({
@@ -13,7 +11,7 @@ dotenv.config();
   templateUrl: './crearalergia.page.html',
   styleUrls: ['./crearalergia.page.scss'],
   standalone: true,
-  imports: [ CommonModule, FormsModule, IonicModule, HttpClientModule] // <-- agregué HttpClientModule
+  imports: [ CommonModule, FormsModule, IonicModule, HttpClientModule] 
 })
 export class CrearalergiaPage implements OnInit {
   

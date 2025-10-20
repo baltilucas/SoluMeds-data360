@@ -7,6 +7,7 @@ import { Alergia } from './models/alergia.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AlergiaService {
   private apiUrl = `${environment.apiUrl}/alergia`; 
 
