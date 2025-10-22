@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const tabla = ["medicamento", "Medicamentos"];
+const tabla = ["paciente", "Paciente"];
 
 router.get("/", async (req, res) => {
   try {
@@ -30,10 +30,13 @@ router.get("/:idPaciente", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const {
-      nombreMedicamento,
-      idPrincipio,
-      idFormato,
-      dosis
+      nombre: nombrePaciente,
+      rut,
+      fechaNacimiento,
+      sexo,
+      direccion,
+      telefono,
+      idNacionalidad,
     } = req.body;
 
     if (!nombrePaciente || !rut || !sexo) {
@@ -153,6 +156,27 @@ router.put("/:idPaciente", async (req, res) => {
     return res
       .status(500)
       .json({ message: `Error modificando el ${tabla[1]}` });
+  }
+});
+
+
+router.get("/rut/:rutPaciente", async (req, res) => {
+  try {
+    const rutPaciente = req.params.rutPaciente;
+
+    const [rows] = await db.execute(
+      `SELECT * FROM ${tabla[0]} WHERE rut = ?;`,
+      [rutPaciente]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: `${tabla[1]} no encontrado` });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
   }
 });
 

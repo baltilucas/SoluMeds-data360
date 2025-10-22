@@ -94,7 +94,7 @@ router.put("/:idAlergia", async (req, res) => {
       return res.status(400).json({ message: "ID inválido" });
     }
 
-    if (!body || !body.nombre) {
+    if (!body.nombre) {
       return res.status(400).json({ message: "Falta el nombre de la alergia" });
     }
 

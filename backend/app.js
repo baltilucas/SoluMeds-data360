@@ -5,6 +5,8 @@ import medicamentos from './rutas/medicamentos.js'
 import medicamentoRecetaRoutes from './rutas/medicamentoReceta.js';
 import alergiaspaciente from './rutas/pacienteAlergia.js';
 import alergias from './rutas/alergias.js'
+import pacientes from './rutas/pacientes.js'
+import principioActivo from './rutas/principioActivo.js'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -39,6 +41,8 @@ app.use('/medicamentoReceta', medicamentoRecetaRoutes);
 app.use('/alergiaspaciente', alergiaspaciente)
 app.use('/alergias', alergias)
 app.use('/medicamentos', medicamentos)
+app.use('/pacientes', pacientes)
+app.use('/principioActivo',principioActivo)
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
