@@ -53,12 +53,12 @@ export const routes: Routes = [
     loadComponent: () => import('./contacto-emergencia/contacto-emergencia.page').then( m => m.ContactoEmergenciaPage)
   },
   {
-    path: 'crearalergia',
-    loadComponent: () => import('./crearalergia/crearalergia.page').then( m => m.CrearalergiaPage)
-  },
-  {
     path: 'creador-paciente',
     loadComponent: () => import('./creador-paciente/creador-paciente.page').then( m => m.CreadorPacientePage)
+  },
+  {
+    path: 'ingresaralergia',
+    loadComponent: () => import('./ingresaralergia/ingresaralergia.page').then( m => m.IngresaralergiaPage)
   }
 
 ];
