@@ -57,10 +57,6 @@ export const routes: Routes = [
     loadComponent: () => import('./crearalergia/crearalergia.page').then( m => m.CrearalergiaPage)
   },
   {
-    path: 'crearalergia',
-    loadComponent: () => import('./crearalergia/crearalergia.page').then( m => m.CrearalergiaPage)
-  },
-  {
     path: 'creador-paciente',
     loadComponent: () => import('./creador-paciente/creador-paciente.page').then( m => m.CreadorPacientePage)
   }

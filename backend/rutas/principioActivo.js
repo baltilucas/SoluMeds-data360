@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const tabla = ["medicamento", "Medicamentos"];
+const tabla = ["principioActivo", "Principio activo"];
 
 router.get("/", async (req, res) => {
   try {
@@ -15,11 +15,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:idMedicamento", async (req, res) => {
+router.get("/:idPrincipio", async (req, res) => {
   try {
-    const idMedicamento = req.params.idMedicamento;
+    const idPaciente = req.params.idPaciente;
     const [rows] = await db.execute(`
-      SELECT * FROM ${tabla[0]} where idMedicamento = ${idMedicamento};`);
+      SELECT * FROM ${tabla[0]} where idPrincipio = ${idPaciente};`);
     res.json(rows);
   } catch (error) {
     console.error(error);
@@ -29,24 +29,24 @@ router.get("/:idMedicamento", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { nombreMedicamento, idPrincipio, idFormato, dosis } = req.body;
+    const { nombrePrincipio } = req.body;
 
-    if (!nombrePaciente || !rut || !sexo) {
+    if (!nombrePrincipio) {
       return res
         .status(400)
         .json({
           message:
-            "Faltan campos obligatorios para ingresar (nombre, rut, sexo)",
+            "Faltan campos obligatorios para ingresar (nombrePrincipio)",
         });
     }
 
     const sql = `
   INSERT INTO ${tabla[0]} 
-  (nombreMedicamento, idPrincipio, idFormato, dosis)
-  VALUES (?, ?, ?, ?, ?, ?, ?);
+  (nombrePrincipio)
+  VALUES (?);
 `;
 
-    await db.query(sql, [nombreMedicamento, idPrincipio, idFormato, dosis]);
+    await db.query(sql, [nombrePrincipio]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
   } catch (error) {
@@ -55,18 +55,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:idMedicamento", async (req, res) => {
+router.delete("/:idPricipio", async (req, res) => {
   try {
-    const idMedicamentostring = req.params.idPaciente;
+    const idPrincipioString = req.params.idPaciente;
 
-    const idMedicamento = parseInt(idMedicamentostring, 10);
-    if (isNaN(idMedicamento)) {
+    const idPrincipio = parseInt(idPrincipioString, 10);
+    if (isNaN(idPrincipio)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
     const [result] = await db.execute(
-      `DELETE FROM ${tabla[0]} WHERE idMedicamento = ?`,
-      [idMedicamento]
+      `DELETE FROM ${tabla[0]} WHERE idPrincipio = ?`,
+      [idPrincipio]
     );
 
     if (result.affectedRows === 0) {
@@ -88,25 +88,22 @@ router.delete("/:idMedicamento", async (req, res) => {
   }
 });
 
-router.put("/:idMedicamento", async (req, res) => {
+router.put("/:idPrincipio", async (req, res) => {
   try {
-    const idMedicamentoString = req.params.idPaciente;
+    const idPacienteString = req.params.idPaciente;
     const body = req.body;
 
-    if (!idMedicamentoString) {
+    if (!idPacienteString) {
       return res.status(400).json({ message: `Falta el id del ${tabla[1]}` });
     }
 
-    const idMedicamento = parseInt(idMedicamentoString, 10);
-    if (isNaN(idMedicamento)) {
+    const idPaciente = parseInt(idPacienteString, 10);
+    if (isNaN(idPaciente)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
     const camposValidos = [
-      "nombreMedicamento",
-      "idPrincipio",
-      "idFormato",
-      "dosis",
+      "nombre"
     ];
 
     const campos = Object.keys(body).filter((key) =>
@@ -121,9 +118,9 @@ router.put("/:idMedicamento", async (req, res) => {
 
     const setClause = campos.map((key) => `${key} = ?`).join(", ");
     const values = campos.map((key) => body[key]);
-    values.push(idMedicamento);
+    values.push(idPaciente);
 
-    const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idMedicamento = ?;`;
+    const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idPrincipio = ?;`;
 
     const [result] = await db.execute(sql, values);
 

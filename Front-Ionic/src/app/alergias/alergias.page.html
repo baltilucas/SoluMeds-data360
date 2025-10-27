@@ -14,11 +14,12 @@
     </ion-toolbar>
   </ion-header>
   
-<ion-card (click)="irCrearAlergia()">
+<ion-card button [routerLink]="['/crear-alergia']">
   <ion-card-header>
     <ion-card-title>Agregar Nueva Alergia</ion-card-title>
   </ion-card-header>
 </ion-card>
+
 
 
   <ion-card *ngFor="let alergia of alergias" button>

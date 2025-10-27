@@ -3,14 +3,14 @@ import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-alergias',
   templateUrl: './alergias.page.html',
   styleUrls: ['./alergias.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, HttpClientModule],
+  imports: [RouterLink ,IonicModule, CommonModule, FormsModule, HttpClientModule],
 })
 export class AlergiasPage implements OnInit {
   alergias: any[] = [];

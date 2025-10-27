@@ -93,7 +93,7 @@ CREATE TABLE alergiapaciente(
     idAlergia INT,
     idSeveridad INT,
     sintomas TEXT,
-    fechaDiagnostico DATE,
+    fechaDiagnostico DATE default curdate(),
     PRIMARY KEY (idPaciente, idAlergia),
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idAlergia) REFERENCES alergia(idAlergia),
@@ -132,7 +132,7 @@ VALUES
 
 CREATE TABLE principioActivo(
     idPrincipio INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(200)
+    nombrePrincipio VARCHAR(200)
 );
 
 CREATE TABLE medicamento(

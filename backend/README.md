@@ -35,3 +35,7 @@ A continuación se describen las rutas correspondientes donde estarán las aplic
 - DELETE - `/<idAlergia>`: Permite borrar una determinada alergia del registro de alergias posible.
 
 - PUT - `/<idAlergia>`: 
+
+## `/Pacientes`
+
+-
