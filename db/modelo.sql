@@ -264,7 +264,7 @@ CREATE TABLE medicamento(
 );
 
 INSERT INTO medicamento (nombreMedicamento, idPrincipio, idFormato, dosis) VALUES
-  ('FortaParac', 1, 1, 500),
+  ('Kitadol', 1, 1, 500),
   ('Ibucare', 2, 1, 400),
   ('AmoxiPlus', 3, 3, 250),
   ('CiproFast', 4, 3, 500),
@@ -310,10 +310,42 @@ CREATE TABLE detallereceta(
     dias INT NOT NULL,
     frecuencia INT NOT NULL,
     horaInicio time,
+    comentario text,
     PRIMARY KEY (idReceta, idMedicamento),
     FOREIGN KEY (idReceta) REFERENCES receta(idReceta),
     FOREIGN KEY (idMedicamento) REFERENCES medicamento(idMedicamento)
 );
+
+INSERT INTO
+    detallereceta (
+        idReceta,
+        idMedicamento,
+        dias,
+        frecuencia,
+        horaInicio
+    )
+VALUES
+    -- Receta 1: tratamiento general
+    (1, 1, 7, 8, '08:00:00'),
+    -- FortaParac 500 mg cada 8h por 7 días
+    (1, 2, 7, 12, '09:00:00'),
+    -- Ibucare 400 mg cada 12h
+    (1, 7, 14, 24, '08:00:00'),
+    -- Omepral 20 mg diario
+    (1, 8, 30, 24, '08:30:00'),
+    -- AspiRed 100 mg diario
+    (1, 6, 30, 24, '09:00:00'),
+    -- CardioLisin 10 mg diario
+    -- Receta 2: paciente con infección respiratoria y control general
+    (2, 3, 10, 8, '07:00:00'),
+    -- AmoxiPlus 250 mg cada 8h por 10 días
+    (2, 13, 7, 12, '08:00:00'),
+    -- ClariMax 250 mg cada 12h por 7 días
+    (2, 10, 14, 6, '06:00:00'),
+    -- VentolinX inhalador cada 6h por 14 días
+    (2, 15, 10, 24, '22:00:00'),
+    -- FlucoMed 150 mg diario por 10 días
+    (2, 14, 10, 24, '21:00:00');
 
 CREATE TABLE intervencion(
     idIntervencion INT PRIMARY KEY AUTO_INCREMENT,
@@ -417,6 +449,7 @@ CREATE TABLE examenpaciente(
     FOREIGN KEY (idExamen) REFERENCES examen(idExamen),
     FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
 );
+
 CREATE TABLE enfermedadcronica(
     idEnfermedadCronica INT PRIMARY KEY AUTO_INCREMENT,
     nombreEnfermedad VARCHAR(100)

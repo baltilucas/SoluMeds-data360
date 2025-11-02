@@ -1,0 +1,11 @@
+ion-toolbar {
+  --background: linear-gradient(135deg, #ffb6b9, #fae3d9);
+  --color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #442b2d, #663f43);
+    --color: #ffffff;
+  }
+}

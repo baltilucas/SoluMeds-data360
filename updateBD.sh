@@ -16,3 +16,6 @@ echo "'$DB_NAME' creada"
 
 mysql -u root -p"${DB_PASS}" ${DB_NAME} < db/modelo.sql
 echo "Esquema ingresado"
+
+mysql -u root -p"${DB_PASS}" ${DB_NAME} < db/vistas.sql
+echo "Vistas y procedimientos almacenados ingresados"

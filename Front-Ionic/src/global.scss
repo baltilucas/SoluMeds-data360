@@ -57,6 +57,13 @@ ion-toolbar {
   --color: #fff;
 }
 
+@media (prefers-color-scheme: dark) {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #222428, #3dc2ff);
+    --color: #ffffff;
+  }
+}
+
 ion-title {
   font-weight: 600;
   letter-spacing: 0.5px;

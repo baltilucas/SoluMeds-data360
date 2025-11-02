@@ -1,0 +1,53 @@
+/* ☀️ Versión clara */
+.card-alergias {
+  --background: linear-gradient(135deg, #ffb6b9, #fae3d9);
+}
+
+.card-medicamentos {
+  --background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+}
+
+.card-intervenciones {
+  --background: linear-gradient(135deg, #fddb92, #d1fdff);
+}
+
+/* Segundo trío */
+.card-enfermedades {
+  --background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+.card-vacunas {
+  --background: linear-gradient(135deg, #84fab0, #8fd3f4);
+}
+
+.card-examenes {
+  --background: linear-gradient(135deg, #ffecd2, #fcb69f);
+}
+
+/* 🌙 Versión oscura */
+@media (prefers-color-scheme: dark) {
+  .card-alergias {
+    --background: linear-gradient(135deg, #442b2d, #663f43);
+  }
+
+  .card-medicamentos {
+    --background: linear-gradient(135deg, #243b55, #141e30);
+  }
+
+  .card-intervenciones {
+    --background: linear-gradient(135deg, #2b5876, #4e4376);
+  }
+
+  /* Segundo trío con tonos adaptados */
+  .card-enfermedades {
+    --background: linear-gradient(135deg, #42275a, #734b6d);
+  }
+
+  .card-vacunas {
+    --background: linear-gradient(135deg, #134e5e, #71b280);
+  }
+
+  .card-examenes {
+    --background: linear-gradient(135deg, #544a7d, #7b8ee4);
+  }
+}
