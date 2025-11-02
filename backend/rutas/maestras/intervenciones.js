@@ -3,7 +3,7 @@ import { db } from "../../db.js";
 
 const router = express.Router();
 
-const tabla = ["examen", "Examen"];
+const tabla = ["intervencion", "Intervención"];
 
 router.get("/", async (req, res) => {
   try {
@@ -15,12 +15,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:idExamen", async (req, res) => {
+router.get("/:idIntervencion", async (req, res) => {
   try {
-    const idExamen = req.params.idExamen;
+    const idIntervencion = req.params.idIntervencion;
     const [rows] = await db.execute(
-      `SELECT * FROM ${tabla[0]} WHERE idExamen = ?;`,
-      [idExamen]
+      `SELECT * FROM ${tabla[0]} WHERE idIntervencion = ?;`,
+      [idIntervencion]
     );
     return res.json(rows);
   } catch (error) {
@@ -31,22 +31,21 @@ router.get("/:idExamen", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { idTipoExamen: idTipoExamen, nombreExamen: nombreExamen } = req.body;
+    const { nombreIntervención } = req.body;
 
-    if (!idTipoExamen || !nombreExamen) {
+    if (!nombreIntervención) {
       return res.status(400).json({
-        message:
-          "Faltan campos obligatorios para ingresar (idTipoExamen,nombreExamen)",
+        message: "Faltan campos obligatorios para ingresar (nombreEnfermedad)",
       });
     }
 
     const sql = `
   INSERT INTO ${tabla[0]} 
-  (idTipoExamen, nombreExamen)
-  VALUES (?, ?);
+  (nombreIntervención)
+  VALUES (?);
 `;
 
-    await db.query(sql, [idTipoExamen, nombreExamen]);
+    await db.query(sql, [nombreIntervención]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
   } catch (error) {
@@ -55,18 +54,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:idExamen", async (req, res) => {
+router.delete("/:idIntervencion", async (req, res) => {
   try {
-    const idExamenString = req.params.idExamen;
+    const idIntervencionString = req.params.idIntervencion;
 
-    const idExamen = parseInt(idExamenString, 10);
-    if (isNaN(idExamen)) {
+    const idIntervencion = parseInt(idIntervencionString, 10);
+    if (isNaN(idIntervencion)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
     const [result] = await db.execute(
-      `DELETE FROM ${tabla[0]} WHERE idExamen = ?`,
-      [idExamen]
+      `DELETE FROM ${tabla[0]} WHERE idIntervencion = ?`,
+      [idIntervencion]
     );
 
     if (result.affectedRows === 0) {
@@ -88,21 +87,21 @@ router.delete("/:idExamen", async (req, res) => {
   }
 });
 
-router.put("/:idExamen", async (req, res) => {
+router.put("/:idIntervencion", async (req, res) => {
   try {
-    const idExamenString = req.params.idExamen;
+    const idIntervencionString = req.params.idIntervencion;
     const body = req.body;
 
-    if (!idExamenString) {
+    if (!idIntervencionString) {
       return res.status(400).json({ message: `Falta el id del ${tabla[1]}` });
     }
 
-    const idExamen = parseInt(idExamenString, 10);
-    if (isNaN(idExamen)) {
+    const idIntervencion = parseInt(idIntervencionString, 10);
+    if (isNaN(idIntervencion)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
-    const camposValidos = ["idTipoExamen", "nombreExamen"];
+    const camposValidos = ["nombreIntervención"];
 
     const campos = Object.keys(body).filter((key) =>
       camposValidos.includes(key)
@@ -116,9 +115,9 @@ router.put("/:idExamen", async (req, res) => {
 
     const setClause = campos.map((key) => `${key} = ?`).join(", ");
     const values = campos.map((key) => body[key]);
-    values.push(idExamen);
+    values.push(idIntervencion);
 
-    const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idExamen = ?;`;
+    const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idIntervencion = ?;`;
 
     const [result] = await db.execute(sql, values);
 

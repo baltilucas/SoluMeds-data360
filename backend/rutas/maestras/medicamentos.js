@@ -1,5 +1,5 @@
 import express from "express";
-import { db } from '../../db.js';
+import { db } from "../../db.js";
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ const tabla = ["medicamento", "Medicamentos"];
 router.get("/", async (req, res) => {
   try {
     const [rows] = await db.execute(`SELECT * FROM ${tabla[0]};`);
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -20,7 +20,7 @@ router.get("/:idMedicamento", async (req, res) => {
     const idMedicamento = req.params.idMedicamento;
     const [rows] = await db.execute(`
       SELECT * FROM ${tabla[0]} where idMedicamento = ${idMedicamento};`);
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -32,12 +32,9 @@ router.post("/", async (req, res) => {
     const { nombreMedicamento, idPrincipio, idFormato, dosis } = req.body;
 
     if (!nombrePaciente || !rut || !sexo) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Faltan campos obligatorios para ingresar (nombre, rut, sexo)",
-        });
+      return res.status(400).json({
+        message: "Faltan campos obligatorios para ingresar (nombre, rut, sexo)",
+      });
     }
 
     const sql = `

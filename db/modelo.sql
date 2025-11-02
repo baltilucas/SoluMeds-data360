@@ -107,6 +107,19 @@ CREATE TABLE doctor(
     nombreDoctor VARCHAR(200)
 );
 
+INSERT INTO doctor (nombreDoctor) VALUES
+  ('Dr. Alejandro Martínez'),
+  ('Dra. Valentina Rojas'),
+  ('Dr. Gabriel Fuentes'),
+  ('Dra. Camila Torres'),
+  ('Dr. Ignacio Pérez'),
+  ('Dra. Mariana Soto'),
+  ('Dr. Sebastián Navarro'),
+  ('Dra. Fernanda Castro'),
+  ('Dr. Ricardo Delgado'),
+  ('Dra. Isidora Molina');
+
+
 CREATE TABLE alergia(
     idAlergia INT PRIMARY KEY AUTO_INCREMENT,
     nombreAlergia VARCHAR(100)
@@ -383,8 +396,7 @@ CREATE TABLE examenpaciente(
     idPaciente INT,
     idExamen INT,
     fecha DATE default curdate(),
-    idDoctor INT,
-    -- quien dio la orden si corresponde
+    idDoctor INT,-- quien dio la orden si corresponde
     comentario TEXT,
     linkExamen TEXT,
     PRIMARY KEY (idPaciente, idExamen, fecha),

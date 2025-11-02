@@ -8,7 +8,7 @@ const tabla = ["vacuna", "VAcuna"];
 router.get("/", async (req, res) => {
   try {
     const [rows] = await db.execute(`SELECT * FROM ${tabla[0]};`);
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -17,11 +17,12 @@ router.get("/", async (req, res) => {
 
 router.get("/:idVacuna", async (req, res) => {
   try {
-    const idExamen = req.params.idExamen;
+    const idVacuna = req.params.idVacuna;
     const [rows] = await db.execute(
       `SELECT * FROM ${tabla[0]} WHERE idVacuna = ?;`,
-      [idExamen]
+      [idVacuna]
     );
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });

@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const [rows] = await db.execute(`SELECT * FROM ${tabla[0]};`);
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -42,10 +42,10 @@ router.get("/", async (req, res) => {
 
 router.get("/:idPrincipio", async (req, res) => {
   try {
-    const idPaciente = req.params.idPaciente;
+    const idPrincipio = req.params.idPrincipio;
     const [rows] = await db.execute(`
-      SELECT * FROM ${tabla[0]} where idPrincipio = ${idPaciente};`);
-    res.json(rows);
+      SELECT * FROM ${tabla[0]} where idPrincipio = ${idPrincipio};`);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -54,7 +54,7 @@ router.get("/:idPrincipio", async (req, res) => {
 
 router.delete("/:idPricipio", async (req, res) => {
   try {
-    const idPrincipioString = req.params.idPaciente;
+    const idPrincipioString = req.params.idPrincipio;
 
     const idPrincipio = parseInt(idPrincipioString, 10);
     if (isNaN(idPrincipio)) {
@@ -87,19 +87,19 @@ router.delete("/:idPricipio", async (req, res) => {
 
 router.put("/:idPrincipio", async (req, res) => {
   try {
-    const idPacienteString = req.params.idPaciente;
+    const idPrincipioString = req.params.idPrincipio;
     const body = req.body;
 
-    if (!idPacienteString) {
+    if (!idPrincipioString) {
       return res.status(400).json({ message: `Falta el id del ${tabla[1]}` });
     }
 
-    const idPaciente = parseInt(idPacienteString, 10);
-    if (isNaN(idPaciente)) {
+    const idPrincipio = parseInt(idPrincipioString, 10);
+    if (isNaN(idPrincipio)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
-    const camposValidos = ["nombre"];
+    const camposValidos = ["nombrePrincipio"];
 
     const campos = Object.keys(body).filter((key) =>
       camposValidos.includes(key)
@@ -113,7 +113,7 @@ router.put("/:idPrincipio", async (req, res) => {
 
     const setClause = campos.map((key) => `${key} = ?`).join(", ");
     const values = campos.map((key) => body[key]);
-    values.push(idPaciente);
+    values.push(idPrincipio);
 
     const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idPrincipio = ?;`;
 

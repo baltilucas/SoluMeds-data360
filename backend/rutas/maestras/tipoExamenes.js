@@ -8,7 +8,7 @@ const tabla = ["tipoexamen", "TipoExamen"];
 router.get("/", async (req, res) => {
   try {
     const [rows] = await db.execute(`SELECT * FROM ${tabla[0]};`);
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -34,22 +34,21 @@ router.get("/:idTipoExamen", async (req, res) => {
         .json({ message: `${tabla[1]} no encontrado para ese tipo` });
     }
 
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
   }
 });
 
-
 router.post("/", async (req, res) => {
   try {
-    const {
-      nombre: tipoExamen,
-    } = req.body;
+    const { nombre: tipoExamen } = req.body;
 
     if (!tipoExamen) {
-      return res.status(400).json({ message: "Faltan campos obligatorios para ingresar (nombre)" });
+      return res
+        .status(400)
+        .json({ message: "Faltan campos obligatorios para ingresar (nombre)" });
     }
 
     const sql = `
@@ -58,8 +57,7 @@ router.post("/", async (req, res) => {
   VALUES (?);
 `;
 
-    await db.query(sql, [
-      tipoExamen]);
+    await db.query(sql, [tipoExamen]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
   } catch (error) {
@@ -127,7 +125,6 @@ router.put("/:idTipoExamen", async (req, res) => {
         .json({ message: `No se enviaron campos válidos para actualizar` });
     }
 
-
     const setClause = campos.map((key) => `${key} = ?`).join(", ");
     const values = campos.map((key) => body[key]);
     values.push(idTipoExamen);
@@ -137,9 +134,7 @@ router.put("/:idTipoExamen", async (req, res) => {
     const [result] = await db.execute(sql, values);
 
     if (result.affectedRows === 0) {
-      return res
-        .status(404)
-        .json({ message: `${tabla[1]} no encontrado` });
+      return res.status(404).json({ message: `${tabla[1]} no encontrado` });
     }
 
     return res
@@ -152,7 +147,5 @@ router.put("/:idTipoExamen", async (req, res) => {
       .json({ message: `Error modificando el ${tabla[1]}` });
   }
 });
-
-
 
 export default router;

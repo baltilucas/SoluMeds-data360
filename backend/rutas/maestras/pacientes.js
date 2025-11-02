@@ -8,7 +8,7 @@ const tabla = ["paciente", "Paciente"];
 router.get("/", async (req, res) => {
   try {
     const [rows] = await db.execute(`SELECT * FROM ${tabla[0]};`);
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
@@ -34,13 +34,12 @@ router.get("/:idPaciente", async (req, res) => {
         .json({ message: `${tabla[1]} no encontrado para ese paciente` });
     }
 
-    res.json(rows);
+    return res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
   }
 });
-
 
 router.post("/", async (req, res) => {
   try {
@@ -55,7 +54,12 @@ router.post("/", async (req, res) => {
     } = req.body;
 
     if (!nombrePaciente || !rut || !sexo) {
-      return res.status(400).json({ message: "Faltan campos obligatorios para ingresar (nombre, rut, sexo)" });
+      return res
+        .status(400)
+        .json({
+          message:
+            "Faltan campos obligatorios para ingresar (nombre, rut, sexo)",
+        });
     }
 
     const sql = `
@@ -148,7 +152,6 @@ router.put("/:idPaciente", async (req, res) => {
         .json({ message: `No se enviaron campos válidos para actualizar` });
     }
 
-
     const setClause = campos.map((key) => `${key} = ?`).join(", ");
     const values = campos.map((key) => body[key]);
     values.push(idPaciente);
@@ -158,9 +161,7 @@ router.put("/:idPaciente", async (req, res) => {
     const [result] = await db.execute(sql, values);
 
     if (result.affectedRows === 0) {
-      return res
-        .status(404)
-        .json({ message: `${tabla[1]} no encontrado` });
+      return res.status(404).json({ message: `${tabla[1]} no encontrado` });
     }
 
     return res
@@ -173,7 +174,6 @@ router.put("/:idPaciente", async (req, res) => {
       .json({ message: `Error modificando el ${tabla[1]}` });
   }
 });
-
 
 router.get("/rut/:rutPaciente", async (req, res) => {
   try {
@@ -194,6 +194,5 @@ router.get("/rut/:rutPaciente", async (req, res) => {
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
   }
 });
-
 
 export default router;
