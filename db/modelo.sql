@@ -161,6 +161,19 @@ CREATE TABLE vacuna(
     componenete VARCHAR(255)
 );
 
+INSERT INTO vacuna (nombreVacuna, componenete) VALUES
+  ('ImmunoPlus', 'Proteína viral recombinante'),
+  ('ViroGuard', 'ARN mensajero sintético'),
+  ('BioShield', 'Vector adenoviral inactivado'),
+  ('NanoVax', 'Nanopartículas lipídicas con antígeno'),
+  ('PentaProtect', 'Proteínas de cinco cepas virales'),
+  ('SafeShot', 'Virus atenuado inactivo'),
+  ('AeroImmune', 'Fragmentos de cápside viral'),
+  ('ImmuneBoost', 'ARN liposomal modificado'),
+  ('RegenVax', 'Proteínas recombinantes de superficie'),
+  ('VitaDefend', 'Antígenos purificados de múltiples patógenos');
+
+
 CREATE TABLE vacunapaciente(
     idPaciente INT,
     idVacuna INT,
@@ -190,6 +203,29 @@ CREATE TABLE principioActivo(
     nombrePrincipio VARCHAR(200)
 );
 
+INSERT INTO principioActivo (nombrePrincipio) VALUES
+  ('Paracetamol'),
+  ('Ibuprofeno'),
+  ('Amoxicilina'),
+  ('Ciprofloxacino'),
+  ('Metformina'),
+  ('Lisinopril'),
+  ('Omeprazol'),
+  ('Aspirina'),
+  ('Prednisona'),
+  ('Salbutamol'),
+  ('Levotiroxina'),
+  ('Simvastatina'),
+  ('Claritromicina'),
+  ('Lorazepam'),
+  ('Fluconazol'),
+  ('Dextrometorfano'),
+  ('Hidroclorotiazida'),
+  ('Losartán'),
+  ('Alprazolam'),
+  ('Metronidazol');
+
+
 CREATE TABLE toxicidadmedicamentos(
     idPrincipio1 INT,
     idPrincipio2 INT,
@@ -210,6 +246,28 @@ CREATE TABLE medicamento(
     FOREIGN KEY (idPrincipio) REFERENCES principioActivo(idPrincipio),
     FOREIGN KEY (idFormato) REFERENCES formato(idFormato)
 );
+
+INSERT INTO medicamento (nombreMedicamento, idPrincipio, idFormato, dosis) VALUES
+  ('FortaParac', 1, 1, 500),
+  ('Ibucare', 2, 1, 400),
+  ('AmoxiPlus', 3, 3, 250),
+  ('CiproFast', 4, 3, 500),
+  ('GlucoMet', 5, 1, 850),
+  ('CardioLisin', 6, 1, 10),
+  ('Omepral', 7, 1, 20),
+  ('AspiRed', 8, 1, 100),
+  ('PredniSol', 9, 1, 5),
+  ('VentolinX', 10, 2, 2),
+  ('ThyroLev', 11, 1, 50),
+  ('CholSim', 12, 1, 20),
+  ('ClariMax', 13, 3, 250),
+  ('LoraCalm', 14, 1, 1),
+  ('FlucoMed', 15, 3, 150),
+  ('TosNoX', 16, 2, 5),
+  ('HydroDiur', 17, 1, 25),
+  ('LosartanEx', 18, 1, 50),
+  ('AlprazRest', 19, 1, 0.5),
+  ('MetroClean', 20, 3, 500);
 
 CREATE TABLE receta(
     idReceta INT PRIMARY KEY AUTO_INCREMENT,
@@ -235,6 +293,19 @@ CREATE TABLE intervencion(
     idIntervencion INT PRIMARY KEY AUTO_INCREMENT,
     nombreIntervención VARCHAR(200)
 );
+
+INSERT INTO intervencion (nombreIntervención) VALUES
+  ('Apendicectomía'),
+  ('Colecistectomía'),
+  ('Histerectomía'),
+  ('Cirugía cardíaca abierta'),
+  ('Traqueotomía'),
+  ('Artroplastia de rodilla'),
+  ('Cirugía de hernia inguinal'),
+  ('Cirugía de cataratas'),
+  ('Cirugía laparoscópica de vesícula'),
+  ('Biopsia quirúrgica');
+
 
 CREATE TABLE intervecnionpaciente(
     idPaciente INT,
@@ -298,10 +369,7 @@ VALUES
     (3, 'Radiografía de extremidades'),
     (4, 'Ecografía abdominal'),
     (4, 'Ecografía pélvica'),
-    (
-        5,
-        'Tomografía axial computarizada (TAC) cerebral'
-    ),
+    (5,'Tomografía axial computarizada (TAC) cerebral'),
     (5, 'TAC de tórax con contraste'),
     (6, 'Resonancia magnética cerebral'),
     (6, 'Resonancia magnética de columna lumbar'),
@@ -309,10 +377,7 @@ VALUES
     (7, 'Ecocardiograma Doppler'),
     (10, 'Cultivo bacteriológico'),
     (11, 'Prueba de ADN para detección genética'),
-    (
-        12,
-        'Prueba de niveles de tiroides (TSH, T3, T4)'
-    );
+    (12,'Prueba de niveles de tiroides (TSH, T3, T4)');
 
 CREATE TABLE examenpaciente(
     idPaciente INT,
@@ -331,6 +396,14 @@ CREATE TABLE enfermedadcronica(
     idEnfermedadCronica INT PRIMARY KEY AUTO_INCREMENT,
     nombreEnfermedad VARCHAR(100)
 );
+
+INSERT INTO enfermedadcronica (nombreEnfermedad) VALUES
+  ('Diabetes'),
+  ('Hipertensión'),
+  ('Asma'),
+  ('Enfermedad cardíaca'),
+  ('Artritis');
+
 
 CREATE TABLE enfermedadcronicapaciente(
     idPaciente INT,
