@@ -5,7 +5,7 @@ import cors from 'cors';
 import alergias from './rutas/maestras/alergias.js';
 import alergiaspaciente from './rutas/transaccionales/alergiasPacientes.js';
 import examenes from './rutas/maestras/examenes.js';
-import medicamentos from './rutas/medicamentos.js';
+import medicamentos from './rutas/maestras/medicamentos.js';
 import pacientes from './rutas/maestras/pacientes.js';
 import principioActivo from './rutas/maestras/principioActivo.js';
 import recetas from './rutas/transaccionales/recetas.js';
