@@ -1,9 +1,9 @@
 import express from "express";
-import { db } from "../db.js";
+import { db } from "../../db.js";
 
 const router = express.Router();
 
-const tabla = ["tipoexamen", "TipoExamen"];
+const tabla = ["vacuna", "VAcuna"];
 
 router.get("/", async (req, res) => {
   try {
@@ -15,51 +15,37 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:idTipoExamen", async (req, res) => {
+router.get("/:idVacuna", async (req, res) => {
   try {
-    const idTipoExamen = parseInt(req.params.idTipoExamen, 10);
-
-    if (isNaN(idTipoExamen)) {
-      return res.status(400).json({ message: "ID inválido" });
-    }
-
+    const idExamen = req.params.idExamen;
     const [rows] = await db.execute(
-      `SELECT * FROM ${tabla[0]} WHERE idTipoExamen = ?;`,
-      [idTipoExamen]
+      `SELECT * FROM ${tabla[0]} WHERE idVacuna = ?;`,
+      [idExamen]
     );
-
-    if (rows.length === 0) {
-      return res
-        .status(404)
-        .json({ message: `${tabla[1]} no encontrado para ese tipo` });
-    }
-
-    res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
   }
 });
 
-
 router.post("/", async (req, res) => {
   try {
-    const {
-      nombre: tipoExamen,
-    } = req.body;
+    const { nombreVacuna, componenete } = req.body;
 
-    if (!tipoExamen) {
-      return res.status(400).json({ message: "Faltan campos obligatorios para ingresar (nombre)" });
+    if (!nombreVacuna || !componenete) {
+      return res.status(400).json({
+        message:
+          "Faltan campos obligatorios para ingresar (nombreVacuna,componenete)",
+      });
     }
 
     const sql = `
   INSERT INTO ${tabla[0]} 
-  (tipoExamen)
-  VALUES (?);
+  (nombreVacuna, componenete)
+  VALUES (?, ?);
 `;
 
-    await db.query(sql, [
-      tipoExamen]);
+    await db.query(sql, [nombreVacuna, componenete]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
   } catch (error) {
@@ -68,18 +54,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:idTipoExamen", async (req, res) => {
+router.delete("/:idVacuna", async (req, res) => {
   try {
-    const idTipoExamenString = req.params.idTipoExamen;
+    const idVacunaString = req.params.idVacuna;
 
-    const idTipoExamen = parseInt(idTipoExamenString, 10);
-    if (isNaN(idTipoExamen)) {
+    const idVacuna = parseInt(idVacunaString, 10);
+    if (isNaN(idVacuna)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
     const [result] = await db.execute(
-      `DELETE FROM ${tabla[0]} WHERE idTipoExamen = ?`,
-      [idTipoExamen]
+      `DELETE FROM ${tabla[0]} WHERE idVacuna = ?`,
+      [idVacuna]
     );
 
     if (result.affectedRows === 0) {
@@ -101,21 +87,21 @@ router.delete("/:idTipoExamen", async (req, res) => {
   }
 });
 
-router.put("/:idTipoExamen", async (req, res) => {
+router.put("/:idVacuna", async (req, res) => {
   try {
-    const idTipoExamenString = req.params.idTipoExamen;
+    const idVacunaString = req.params.idVacuna;
     const body = req.body;
 
-    if (!idTipoExamenString) {
+    if (!idVacunaString) {
       return res.status(400).json({ message: `Falta el id del ${tabla[1]}` });
     }
 
-    const idTipoExamen = parseInt(idTipoExamenString, 10);
-    if (isNaN(idTipoExamen)) {
+    const idVacuna = parseInt(idVacunaString, 10);
+    if (isNaN(idVacuna)) {
       return res.status(400).json({ message: "ID inválido" });
     }
 
-    const camposValidos = ["tipoExamen"];
+    const camposValidos = ["nombreVacuna", "componenete"];
 
     const campos = Object.keys(body).filter((key) =>
       camposValidos.includes(key)
@@ -127,19 +113,16 @@ router.put("/:idTipoExamen", async (req, res) => {
         .json({ message: `No se enviaron campos válidos para actualizar` });
     }
 
-
     const setClause = campos.map((key) => `${key} = ?`).join(", ");
     const values = campos.map((key) => body[key]);
-    values.push(idTipoExamen);
+    values.push(idVacuna);
 
-    const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idTipoExamen = ?;`;
+    const sql = `UPDATE ${tabla[0]} SET ${setClause} WHERE idVacuna = ?;`;
 
     const [result] = await db.execute(sql, values);
 
     if (result.affectedRows === 0) {
-      return res
-        .status(404)
-        .json({ message: `${tabla[1]} no encontrado` });
+      return res.status(404).json({ message: `${tabla[1]} no encontrado` });
     }
 
     return res
@@ -152,7 +135,5 @@ router.put("/:idTipoExamen", async (req, res) => {
       .json({ message: `Error modificando el ${tabla[1]}` });
   }
 });
-
-
 
 export default router;

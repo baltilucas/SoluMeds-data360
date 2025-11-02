@@ -18,7 +18,7 @@ router.get("/paciente/:idPaciente", async (req, res) => {
   }
 });
 
-router.get("/receta/:idReceta", async (req, res) => {
+router.get("/:idReceta", async (req, res) => {
   try {
     const idReceta = parseInt(req.params.idReceta, 10);
     const [rows] = await db.execute(`

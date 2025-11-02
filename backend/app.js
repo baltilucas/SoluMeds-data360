@@ -2,15 +2,15 @@ import express from 'express';
 import { db } from './db.js';
 import cors from 'cors';
 
-import alergias from './rutas/alergias.js';
-import alergiaspaciente from './rutas/pacienteAlergia.js';
-import examenes from './rutas/examenes.js';
+import alergias from './rutas/maestras/alergias.js';
+import alergiaspaciente from './rutas/transaccionales/alergiasPacientes.js';
+import examenes from './rutas/maestras/examenes.js';
 import medicamentos from './rutas/medicamentos.js';
-import pacientes from './rutas/pacientes.js';
-import principioActivo from './rutas/principioActivo.js';
-import recetas from './rutas/recetas.js';
-import tipoexamenes from './rutas/tipoExamenes.js';
-import vacunas from './rutas/vacunas.js'
+import pacientes from './rutas/maestras/pacientes.js';
+import principioActivo from './rutas/maestras/principioActivo.js';
+import recetas from './rutas/transaccionales/recetas.js';
+import tipoexamenes from './rutas/maestras/tipoExamenes.js';
+import vacunas from './rutas/maestras/vacunas.js'
 
 
 import dotenv from 'dotenv';

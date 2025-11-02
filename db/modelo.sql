@@ -70,7 +70,11 @@ CREATE TABLE paciente (
 INSERT INTO
     paciente (
         nombrePaciente,
+        segundoNombrePaciente,
         apellidoPaciente,
+        segundoApellidoPaciente,
+        correoPersonal,
+        correoSolumeds,
         rut,
         fechaNacimiento,
         sexo,
@@ -83,7 +87,11 @@ INSERT INTO
 VALUES
     (
         'Cristian',
+        'Alfonso',
         'Valenzuela',
+        'Sobarzo',
+        'cristianvalenzuela@gmail.com',
+        'cvalenzuela@solumeds.cl',
         '20496709-1',
         '2000-10-10',
         1,
@@ -187,7 +195,9 @@ CREATE TABLE toxicidadmedicamentos(
     idPrincipio2 INT,
     idSeveridad INT,
     PRIMARY KEY (idPrincipio1, idPrincipio2),
-    FOREIGN KEY (idPrincipio1) REFERENCES principioActivo(idPrincipio) FOREIGN KEY (idPrincipio2) REFERENCES principioActivo(idPrincipio) FOREIGN KEY (idSeveridad) REFERENCES severidad(idSeveridad),
+    FOREIGN KEY (idPrincipio1) REFERENCES principioActivo(idPrincipio),
+    FOREIGN KEY (idPrincipio2) REFERENCES principioActivo(idPrincipio),
+    FOREIGN KEY (idSeveridad) REFERENCES severidad(idSeveridad),
     CHECK (idPrincipio1 < idPrincipio2)
 );
 
@@ -226,16 +236,17 @@ CREATE TABLE intervencion(
     nombreIntervención VARCHAR(200)
 );
 
-INSERT
-    CREATE TABLE intervecnionpaciente(
-        idPaciente INT,
-        idIntervencion INT,
-        idDoctor INT,
-        fechaIntervencion DATE default curdate(),
-        horaIntervención TIME,
-        PRIMARY KEY (idPaciente, idIntervencion),
-        FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente) FOREIGN KEY (idIntervencion) REFERENCES intervencion(idIntervencion) FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
-    );
+CREATE TABLE intervecnionpaciente(
+    idPaciente INT,
+    idIntervencion INT,
+    idDoctor INT,
+    fechaIntervencion DATE default curdate(),
+    horaIntervención TIME,
+    PRIMARY KEY (idPaciente, idIntervencion, fechaIntervencion),
+    FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
+    FOREIGN KEY (idIntervencion) REFERENCES intervencion(idIntervencion),
+    FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
+);
 
 CREATE TABLE tipoexamen(
     idTipoExamen INT PRIMARY KEY AUTO_INCREMENT,
@@ -243,7 +254,7 @@ CREATE TABLE tipoexamen(
 );
 
 INSERT INTO
-    tipoExamen (tipoExamen)
+    tipoexamen (tipoExamen)
 VALUES
     ('SANGRE'),
     ('ORINA'),
@@ -270,7 +281,7 @@ CREATE TABLE examen(
     idExamen INT PRIMARY KEY AUTO_INCREMENT,
     idTipoExamen INT,
     nombreExamen VARCHAR(150),
-    FOREIGN KEY (idTipoExamen) REFERENCES tipoExamen(idTipoExamen)
+    FOREIGN KEY (idTipoExamen) REFERENCES tipoexamen(idTipoExamen)
 );
 
 INSERT INTO
@@ -287,7 +298,10 @@ VALUES
     (3, 'Radiografía de extremidades'),
     (4, 'Ecografía abdominal'),
     (4, 'Ecografía pélvica'),
-    (5,'Tomografía axial computarizada (TAC) cerebral'),
+    (
+        5,
+        'Tomografía axial computarizada (TAC) cerebral'
+    ),
     (5, 'TAC de tórax con contraste'),
     (6, 'Resonancia magnética cerebral'),
     (6, 'Resonancia magnética de columna lumbar'),
@@ -295,7 +309,10 @@ VALUES
     (7, 'Ecocardiograma Doppler'),
     (10, 'Cultivo bacteriológico'),
     (11, 'Prueba de ADN para detección genética'),
-    (12,'Prueba de niveles de tiroides (TSH, T3, T4)');
+    (
+        12,
+        'Prueba de niveles de tiroides (TSH, T3, T4)'
+    );
 
 CREATE TABLE examenpaciente(
     idPaciente INT,
@@ -305,11 +322,11 @@ CREATE TABLE examenpaciente(
     -- quien dio la orden si corresponde
     comentario TEXT,
     linkExamen TEXT,
-    PRIMARY KEY (idPaciente, idExamen, fecha) FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
+    PRIMARY KEY (idPaciente, idExamen, fecha),
+    FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idExamen) REFERENCES examen(idExamen),
     FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
 );
-
 CREATE TABLE enfermedadcronica(
     idEnfermedadCronica INT PRIMARY KEY AUTO_INCREMENT,
     nombreEnfermedad VARCHAR(100)
@@ -318,8 +335,8 @@ CREATE TABLE enfermedadcronica(
 CREATE TABLE enfermedadcronicapaciente(
     idPaciente INT,
     idEnfermedadCronica INT,
-    fechaDiagnostico DATE default curdate(),
+    fechaDiagnostico DATE DEFAULT CURDATE(),
     PRIMARY KEY (idPaciente, idEnfermedadCronica),
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
-    FOREIGN KEY (idEnfermedadCronica) REFERENCES enfermedadcronica(idEnfermedadCronica),
+    FOREIGN KEY (idEnfermedadCronica) REFERENCES enfermedadcronica(idEnfermedadCronica)
 );
