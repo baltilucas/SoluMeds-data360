@@ -64,7 +64,10 @@ CREATE TABLE paciente (
     prais BOOLEAN DEFAULT 0,
     FOREIGN KEY (idNacionalidad) REFERENCES nacionalidad(idNacionalidad),
     FOREIGN KEY (idPrevision) REFERENCES prevision(idPrevision)
+    
 );
+
+CREATE UNIQUE INDEX idx_rut ON paciente(rut);
 
 -- Insert de ejemplo corregido
 INSERT INTO
@@ -285,11 +288,21 @@ INSERT INTO medicamento (nombreMedicamento, idPrincipio, idFormato, dosis) VALUE
 CREATE TABLE receta(
     idReceta INT PRIMARY KEY AUTO_INCREMENT,
     idPaciente INT NOT NULL,
-    fecha timestamp NOT NULL,
+    fecha DATE default curdate(),
     idDoctor INT,
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
 );
+
+INSERT INTO
+    receta(idPaciente, idDoctor)
+VALUES
+    (1,1);
+
+INSERT INTO
+    receta(idPaciente,fecha, idDoctor)
+VALUES
+    (1,'2020-10-10',2);
 
 CREATE TABLE detallereceta(
     idReceta INT,

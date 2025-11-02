@@ -1,19 +1,18 @@
 #!/bin/bash
 
 
+#!/bin/bash
+
 DB_NAME="fichasmedicas"
+read -s -p "Introduce la contraseña de MySQL: " DB_PASS
+echo
 echo "Comenzando reescritura de Base de Datos"
 
-mysql -u root -p -e "DROP DATABASE IF EXISTS ${DB_NAME};"
+mysql -u root -p"${DB_PASS}" -e "DROP DATABASE IF EXISTS ${DB_NAME};"
+echo "'$DB_NAME' eliminada"
 
-echo "'$DB_NAME' Eliminada"
+mysql -u root -p"${DB_PASS}" -e "CREATE DATABASE ${DB_NAME};"
+echo "'$DB_NAME' creada"
 
-mysql -u root -p -e "CREATE DATABASE ${DB_NAME};"
-
-echo "'$DB_NAME' Creada"
-
-mysql -u root -p ${DB_NAME} < db/modelo.sql
-
+mysql -u root -p"${DB_PASS}" ${DB_NAME} < db/modelo.sql
 echo "Esquema ingresado"
-
-

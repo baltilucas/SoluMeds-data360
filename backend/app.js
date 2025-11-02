@@ -4,6 +4,7 @@ import cors from "cors";
 
 import alergias from "./rutas/maestras/alergias.js";
 import alergiaspaciente from "./rutas/transaccionales/alergiasPacientes.js";
+import detallereceta from "./rutas/transaccionales/detallesRecetas.js";
 import enfermedadesCronicas from "./rutas/maestras/enfermedadesCronicas.js";
 import examenes from "./rutas/maestras/examenes.js";
 import intervenciones from "./rutas/maestras/intervenciones.js";
@@ -34,6 +35,7 @@ app.use(express.json());
 const endpoints = [
   "/alergias",
   "/alergiaspaciente",
+  "/detallesrecetas",
   '/enfermedadescronicas',
   "/examenes",
   "/intervenciones",
@@ -56,6 +58,7 @@ app.get("/", async (req, res) => {
 
 app.use("/alergias", alergias);
 app.use("/alergiaspaciente", alergiaspaciente);
+app.use("/detallesrecetas", detallereceta);
 app.use("/enfermedadescronicas", enfermedadesCronicas);
 app.use("/examenes", examenes);
 app.use("/intervenciones", intervenciones)

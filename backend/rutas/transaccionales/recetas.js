@@ -1,5 +1,5 @@
 import express from "express";
-import { db } from '../../db.js';
+import { db } from "../../db.js";
 
 const router = express.Router();
 
@@ -32,22 +32,19 @@ router.get("/:idReceta", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { idPaciente, idReceta, idSeveridad, sintomas, fechaDiagnostico } =
-      req.body;
+    const { idPaciente, fecha, idDoctor } = req.body;
 
-    if (!idPaciente || !idReceta || !idSeveridad) {
-      return res.status(400).json({ message: "Falta un dato obligatorio" });
+    if (!idPaciente || !idDoctor) {
+      return res.status(400).json({
+        message: "Falta un dato obligatorio (idPaciente, idDoctor)",
+      });
     }
-
-    const sql = `INSERT INTO ${tabla[0]} (idPaciente, idAlergia, idSeveridad, sintomas, fechaDiagnostico) VALUES (?, ? ,?, ?, ?);`;
-
-    await db.query(sql, [
-      idPaciente,
-      idReceta,
-      idSeveridad,
-      sintomas,
-      fechaDiagnostico,
-    ]);
+    const sql = `
+  INSERT INTO ${tabla[0]} 
+  (idPaciente, fecha, idDoctor)
+  VALUES (?, ? ,?);
+`;
+    await db.query(sql, [idPaciente, fecha, idDoctor]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
   } catch (error) {
@@ -56,7 +53,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:idPaciente/:idReceta", async (req, res) => {
+router.delete("/:idReceta", async (req, res) => {
   try {
     const idReceta = parseInt(req.params.idReceta, 10);
     const idPaciente = parseInt(req.params.idPaciente);
@@ -70,7 +67,7 @@ router.delete("/:idPaciente/:idReceta", async (req, res) => {
     }
 
     const [result] = await db.execute(
-      `DELETE FROM ${tabla[0]} WHERE idReceta = ? and idPaciente = ?`,
+      `DELETE FROM ${tabla[0]} WHERE idReceta = ?;`,
       [idReceta, idPaciente]
     );
 
@@ -86,21 +83,16 @@ router.delete("/:idPaciente/:idReceta", async (req, res) => {
   }
 });
 
-router.put("/:idReceta/:idPaciente", async (req, res) => {
+router.put("/:idReceta", async (req, res) => {
   try {
     const idReceta = parseInt(req.params.idReceta, 10);
-    const idPaciente = parseInt(req.params.idPaciente, 10);
     const body = req.body;
 
     if (isNaN(idReceta)) {
       return res.status(400).json({ message: "ID de receta inválido" });
     }
 
-    if (isNaN(idPaciente)) {
-      return res.status(400).json({ message: "ID de paciente inválido" });
-    }
-
-    const camposValidos = ["idSeveridad", "sintomas", "fechaDiagnostico"];
+    const camposValidos = ["idPaciente", "fecha", "idDoctor"];
     const campos = Object.keys(body).filter((key) =>
       camposValidos.includes(key)
     );
@@ -118,17 +110,15 @@ router.put("/:idReceta/:idPaciente", async (req, res) => {
     const sql = `
       UPDATE ${tabla[0]}
       SET ${setClause}
-      WHERE idPaciente = ? AND idReceta = ?;
+      WHERE idReceta = ?;
     `;
 
     const [result] = await db.execute(sql, values);
 
     if (result.affectedRows === 0) {
-      return res
-        .status(404)
-        .json({
-          message: `No se encontró la alergia del paciente para actualizar`,
-        });
+      return res.status(404).json({
+        message: `No se encontró la alergia del paciente para actualizar`,
+      });
     }
 
     return res
@@ -141,7 +131,5 @@ router.put("/:idReceta/:idPaciente", async (req, res) => {
       .json({ message: "Error modificando la receta del paciente" });
   }
 });
-
-
 
 export default router;
