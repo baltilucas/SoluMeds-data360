@@ -17,15 +17,30 @@ router.get("/", async (req, res) => {
 
 router.get("/:idPaciente", async (req, res) => {
   try {
-    const idPaciente = req.params.idPaciente;
-    const [rows] = await db.execute(`
-      SELECT * FROM ${tabla[0]} where idPaciente = ${idPaciente};`);
+    const idPaciente = parseInt(req.params.idPaciente, 10);
+
+    if (isNaN(idPaciente)) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+
+    const [rows] = await db.execute(
+      `SELECT * FROM ${tabla[0]} WHERE idPaciente = ?;`,
+      [idPaciente]
+    );
+
+    if (rows.length === 0) {
+      return res
+        .status(404)
+        .json({ message: `${tabla[1]} no encontrado para ese paciente` });
+    }
+
     res.json(rows);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
   }
 });
+
 
 router.post("/", async (req, res) => {
   try {

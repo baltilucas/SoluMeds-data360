@@ -1,12 +1,17 @@
 import express from 'express';
 import { db } from './db.js';
 import cors from 'cors';
-import medicamentos from './rutas/medicamentos.js'
-import recetas from './rutas/recetas.js';
+
+import alergias from './rutas/alergias.js';
 import alergiaspaciente from './rutas/pacienteAlergia.js';
-import alergias from './rutas/alergias.js'
-import pacientes from './rutas/pacientes.js'
-import principioActivo from './rutas/principioActivo.js'
+import examenes from './rutas/examenes.js';
+import medicamentos from './rutas/medicamentos.js';
+import pacientes from './rutas/pacientes.js';
+import principioActivo from './rutas/principioActivo.js';
+import recetas from './rutas/recetas.js';
+import tipoexamenes from './rutas/tipoExamenes.js';
+
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -37,12 +42,15 @@ app.get('/', async (req, res) => {
   }
 })
 
+app.use('/alergias', alergias);
+app.use('/alergiaspaciente', alergiaspaciente);
+app.use('/examenes', examenes);
+app.use('/medicamentos', medicamentos);
+app.use('/pacientes', pacientes);
+app.use('/principioActivo', principioActivo);
 app.use('/recetas', recetas);
-app.use('/alergiaspaciente', alergiaspaciente)
-app.use('/alergias', alergias)
-app.use('/medicamentos', medicamentos)
-app.use('/pacientes', pacientes)
-app.use('/principioActivo',principioActivo)
+app.use('/tipoexamenes', tipoexamenes);
+
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
