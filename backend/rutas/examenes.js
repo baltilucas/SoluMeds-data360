@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
   VALUES (?, ?);
 `;
 
-    await db.query(sql, [idTipoExamen]);
+    await db.query(sql, [idTipoExamen, nombreExamen]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
   } catch (error) {

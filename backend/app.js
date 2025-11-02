@@ -10,6 +10,7 @@ import pacientes from './rutas/pacientes.js';
 import principioActivo from './rutas/principioActivo.js';
 import recetas from './rutas/recetas.js';
 import tipoexamenes from './rutas/tipoExamenes.js';
+import vacunas from './rutas/vacunas.js'
 
 
 import dotenv from 'dotenv';
@@ -50,6 +51,7 @@ app.use('/pacientes', pacientes);
 app.use('/principioActivo', principioActivo);
 app.use('/recetas', recetas);
 app.use('/tipoexamenes', tipoexamenes);
+app.use('/vacunas', vacunas);
 
 
 app.listen(port, () => {
