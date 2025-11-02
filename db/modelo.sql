@@ -1,55 +1,98 @@
-CREATE TABLE nacionalidad(
+-- Tabla de nacionalidades
+CREATE TABLE nacionalidad (
     idNacionalidad INT PRIMARY KEY AUTO_INCREMENT,
     pais VARCHAR(100)
 );
 
-INSERT INTO
-    nacionalidad(pais)
+INSERT INTO nacionalidad (pais)
 VALUES
-    ("CHILE"),
+    ('CHILE'),
     ('PERU'),
     ('VENEZUELA'),
-    ('ARGENITNA');
+    ('ARGENTINA');  -- corregido "ARGENITNA"
 
-
-CREATE TABLE paciente(
-    idPaciente INT PRIMARY KEY AUTO_INCREMENT,
-    nombrePaciente VARCHAR(50),
-    rut VARCHAR(13),
-    fechaNacimiento DATE,
-    sexo TINYINT,
-    direccion VARCHAR(200),
-    telefono VARCHAR(12),
-    idNacionalidad INT,
-    FOREIGN KEY (idNacionalidad) REFERENCES nacionalidad(idNacionalidad)
+-- Tabla de tipos de previsión
+CREATE TABLE tipoprevision (
+    idTipoPrevision INT PRIMARY KEY AUTO_INCREMENT,
+    tipoPrevision VARCHAR(50)
 );
 
-INSERT INTO
-    paciente (
-        nombrePaciente,
-        rut,
-        fechaNacimiento,
-        sexo,
-        direccion,
-        telefono,
-        idNacionalidad
-    )
+-- Debes especificar la columna, ya que tipoprevision tiene un campo autoincremental
+INSERT INTO tipoprevision (tipoPrevision)
 VALUES
-    (
-        'Cristian Valenzuela',
-        '20496709-1',
-        '2000-10-10',
-        1,
-        'Los Olivos 1234',
-        '987654321',
-        1
-    );
+    ('FONASA'),
+    ('ISAPRE');
+
+-- Tabla de previsión
+CREATE TABLE prevision (
+    idPrevision INT PRIMARY KEY AUTO_INCREMENT,
+    nombrePrevision VARCHAR(60),
+    idTipoPrevision INT,
+    FOREIGN KEY (idTipoPrevision) REFERENCES tipoprevision(idTipoPrevision)
+);
+
+-- Corregido: se debe incluir idTipoPrevision en el INSERT
+INSERT INTO prevision (nombrePrevision, idTipoPrevision)
+VALUES
+    ('FONASA A', 1),
+    ('FONASA B', 1),
+    ('FONASA C', 1),
+    ('BANMEDICA', 2),
+    ('CRUZ BLANCA', 2),
+    ('ESSENTIAL', 2);
+
+-- 0 será femenino, 1 masculino, 3 otro
+CREATE TABLE paciente (
+    idPaciente INT PRIMARY KEY AUTO_INCREMENT,
+    nombrePaciente VARCHAR(50) NOT NULL,
+    segundoNombrePaciente VARCHAR(50),
+    apellidoPaciente VARCHAR(50) NOT NULL,
+    segundoApellidoPaciente VARCHAR(50),
+    correoPersonal VARCHAR(100) NOT NULL,
+    correoSolumeds VARCHAR(100) NOT NULL,
+    rut VARCHAR(20),
+    fechaNacimiento DATE NOT NULL,
+    sexo TINYINT NOT NULL,
+    direccion VARCHAR(200),
+    telefono VARCHAR(12) NOT NULL,
+    idNacionalidad INT,
+    idPrevision INT,
+    prais BOOLEAN DEFAULT 0,
+    FOREIGN KEY (idNacionalidad) REFERENCES nacionalidad(idNacionalidad),
+    FOREIGN KEY (idPrevision) REFERENCES prevision(idPrevision)
+);
+
+-- Insert de ejemplo corregido
+INSERT INTO paciente (
+    nombrePaciente,
+    apellidoPaciente,
+    rut,
+    fechaNacimiento,
+    sexo,
+    direccion,
+    telefono,
+    idNacionalidad,
+    idPrevision,
+    prais
+)
+VALUES (
+    'Cristian',
+    'Valenzuela',
+    '20496709-1',
+    '2000-10-10',
+    1,
+    'Los Olivos 1234',
+    '987654321',
+    1,
+    1,
+    0
+);
+
 
 CREATE TABLE doctor(
     idDoctor INT PRIMARY KEY AUTO_INCREMENT,
-    nombreDoctor VARCHAR(200)   
+    nombreDoctor VARCHAR(200)
 );
-
 
 CREATE TABLE alergia(
     idAlergia INT PRIMARY KEY AUTO_INCREMENT,
@@ -74,7 +117,7 @@ VALUES
     ("Niquel (metal)"),
     ("Perfumes"),
     ("Cápsulas de gelatina");
-    
+
 CREATE TABLE severidad(
     idSeveridad INT PRIMARY KEY AUTO_INCREMENT,
     severidad VARCHAR(50)
@@ -84,9 +127,8 @@ INSERT INTO
     severidad(severidad)
 VALUES
     ('LEVE'),
-('MODERADO'),
-('GRAVE');
-
+    ('MODERADO'),
+    ('GRAVE');
 
 CREATE TABLE alergiapaciente(
     idPaciente INT,
@@ -135,6 +177,17 @@ CREATE TABLE principioActivo(
     nombrePrincipio VARCHAR(200)
 );
 
+CREATE TABLE toxicidadmedicamentos(
+    idPrincipio1 INT,
+    idPrincipio2 INT,
+    idSeveridad INT,
+    PRIMARY KEY (idPrincipio1, idPrincipio2),
+    FOREIGN KEY (idPrincipio1) REFERENCES principioActivo(idPrincipio)
+    FOREIGN KEY (idPrincipio2) REFERENCES principioActivo(idPrincipio)
+    FOREIGN KEY (idSeveridad) REFERENCES severidad(idSeveridad),
+    CHECK (idPrincipio1 < idPrincipio2)
+);
+
 CREATE TABLE medicamento(
     idMedicamento INT PRIMARY KEY AUTO_INCREMENT,
     nombreMedicamento VARCHAR(255),
@@ -163,6 +216,62 @@ CREATE TABLE detallereceta(
     PRIMARY KEY (idReceta, idMedicamento),
     FOREIGN KEY (idReceta) REFERENCES receta(idReceta),
     FOREIGN KEY (idMedicamento) REFERENCES medicamento(idMedicamento)
+);
+
+
+CREATE TABLE intervencion(
+    idIntervencion INT PRIMARY KEY AUTO_INCREMENT,
+    nombreIntervención VARCHAR(200)
+);
+
+CREATE TABLE intervecnionpaciente(
+    idPaciente INT,
+    idIntervencion INT,
+    idDoctor INT,
+    fechaIntervencion DATE default curdate(),
+    horaIntervención  TIME,
+    PRIMARY KEY (idPaciente, idIntervencion),
+    FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente)
+    FOREIGN KEY (idIntervencion) REFERENCES intervencion(idIntervencion)
+    FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
     );
 
 
+CREATE TABLE tipoexamen(
+    idTipoExamen INT PRIMARY KEY AUTO_INCREMENT,
+    tipoExamen VARCHAR(50);
+);
+
+CREATE TABLE examen(
+    idExamen INT PRIMARY KEY AUTO_INCREMENT,
+    idTipoExamen INT,
+    nombreExamen VARCHAR(150),
+    FOREIGN KEY (idTipoExamen) REFERENCES tipoExamen(idTipoExamen)
+);
+
+CREATE TABLE examenpaciente(
+    idPaciente INT,
+    idExamen INT,
+    fecha DATE default curdate(),
+    idDoctor INT, -- quien dio la orden si corresponde
+    comentario TEXT,
+    PRIMARY KEY (idPaciente, idExamen, fecha)
+    FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
+    FOREIGN KEY (idExamen) REFERENCES examen(idExamen),
+    FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
+);
+
+CREATE TABLE enfermedadcronica(
+    idEnfermedadCronica INT PRIMARY KEY AUTO_INCREMENT,
+    nombreEnfermedad VARCHAR(100)
+);
+
+CREATE TABLE enfermedadcronicapaciente(
+    idPaciente INT,
+    idEnfermedadCronica INT,
+    fechaDiagnostico DATE default curdate(),
+    PRIMARY KEY (idPaciente, idEnfermedadCronica),
+    FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
+    FOREIGN KEY (idEnfermedadCronica) REFERENCES enfermedadcronica(idEnfermedadCronica),
+
+);

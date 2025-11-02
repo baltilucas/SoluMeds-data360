@@ -5,6 +5,31 @@ const router = express.Router();
 
 const tabla = ["principioActivo", "Principio activo"];
 
+router.post("/", async (req, res) => {
+  try {
+    const { nombrePrincipio } = req.body;
+
+    if (!nombrePrincipio) {
+      return res.status(400).json({
+        message: "Faltan campos obligatorios para ingresar (nombrePrincipio)",
+      });
+    }
+
+    const sql = `
+  INSERT INTO ${tabla[0]} 
+  (nombrePrincipio)
+  VALUES (?);
+`;
+
+    await db.query(sql, [nombrePrincipio]);
+
+    return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: `Error al añadir ${tabla[1]}` });
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const [rows] = await db.execute(`SELECT * FROM ${tabla[0]};`);
@@ -24,34 +49,6 @@ router.get("/:idPrincipio", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const { nombrePrincipio } = req.body;
-
-    if (!nombrePrincipio) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Faltan campos obligatorios para ingresar (nombrePrincipio)",
-        });
-    }
-
-    const sql = `
-  INSERT INTO ${tabla[0]} 
-  (nombrePrincipio)
-  VALUES (?);
-`;
-
-    await db.query(sql, [nombrePrincipio]);
-
-    return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: `Error al añadir ${tabla[1]}` });
   }
 });
 
@@ -102,9 +99,7 @@ router.put("/:idPrincipio", async (req, res) => {
       return res.status(400).json({ message: "ID inválido" });
     }
 
-    const camposValidos = [
-      "nombre"
-    ];
+    const camposValidos = ["nombre"];
 
     const campos = Object.keys(body).filter((key) =>
       camposValidos.includes(key)
