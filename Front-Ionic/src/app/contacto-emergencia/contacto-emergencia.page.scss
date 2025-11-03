@@ -1,0 +1,23 @@
+/* Cards intercaladas en modo claro */
+ion-col:nth-child(odd) ion-card {
+  --background: #f5f7fa; /* claro */
+  color: #1e1e1e; /* texto oscuro */
+}
+
+ion-col:nth-child(even) ion-card {
+  --background: #d0e6f7; /* azul suave */
+  color: #1e1e1e;
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  ion-col:nth-child(odd) ion-card {
+    --background: #333333; /* gris oscuro */
+    color: #ffffff; /* texto claro */
+  }
+
+  ion-col:nth-child(even) ion-card {
+    --background: #555555; /* otro gris */
+    color: #ffffff;
+  }
+}

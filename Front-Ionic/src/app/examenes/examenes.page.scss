@@ -1,11 +1,31 @@
 ion-toolbar {
-  --background: linear-gradient(135deg, #ffecd2, #fcb69f);
+  --background: linear-gradient(135deg, #fcb69f, #ffecd2);
   --color: #fff;
 }
+
+ion-card:nth-child(odd) {
+  --background: #88a8d8; 
+}
+
+ion-card:nth-child(even) {
+  --background: #d0e6f7; 
+}
+
 
 @media (prefers-color-scheme: dark) {
   ion-toolbar {
     --background: linear-gradient(135deg, #544a7d, #7b8ee4);
     --color: #ffffff;
   }
+  ion-card:nth-child(odd) {
+    --background: #914545;
+  }
+  ion-card:nth-child(even) {
+    --background: #40422e;
+  }
+  ion-card h2 {
+    color: #ffffff; 
+  }
+
 }
+
