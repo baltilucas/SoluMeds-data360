@@ -164,7 +164,7 @@ CREATE TABLE alergiapaciente(
     idAlergia INT,
     idSeveridad INT,
     sintomas TEXT,
-    fechaDiagnostico DATE default CURRENT_TIMESTAMP,
+    fechaDiagnostico DATE,
     PRIMARY KEY (idPaciente, idAlergia),
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idAlergia) REFERENCES alergia(idAlergia),
@@ -288,7 +288,7 @@ INSERT INTO medicamento (nombreMedicamento, idPrincipio, idFormato, dosis) VALUE
 CREATE TABLE receta(
     idReceta INT PRIMARY KEY AUTO_INCREMENT,
     idPaciente INT NOT NULL,
-    fecha DATE default curdate(),
+    fecha DATE,
     idDoctor INT,
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
@@ -369,7 +369,7 @@ CREATE TABLE intervecnionpaciente(
     idPaciente INT,
     idIntervencion INT,
     idDoctor INT,
-    fechaIntervencion DATE default curdate(),
+    fechaIntervencion DATE,
     horaIntervención TIME,
     PRIMARY KEY (idPaciente, idIntervencion, fechaIntervencion),
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
@@ -440,7 +440,7 @@ VALUES
 CREATE TABLE examenpaciente(
     idPaciente INT,
     idExamen INT,
-    fecha DATE default curdate(),
+    fecha DATE,
     idDoctor INT,-- quien dio la orden si corresponde
     comentario TEXT,
     linkExamen TEXT,
@@ -466,7 +466,7 @@ INSERT INTO enfermedadcronica (nombreEnfermedad) VALUES
 CREATE TABLE enfermedadcronicapaciente(
     idPaciente INT,
     idEnfermedadCronica INT,
-    fechaDiagnostico DATE DEFAULT CURDATE(),
+    fechaDiagnostico DATE,
     PRIMARY KEY (idPaciente, idEnfermedadCronica),
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idEnfermedadCronica) REFERENCES enfermedadcronica(idEnfermedadCronica)
