@@ -22,13 +22,7 @@ const app = express();
 const port = 4000 || process.env.PORT_EXPRESS;
 const port_cors = 8100 || process.env.PORT_CORS;
 
-app.use(
-  cors({
-    origin: `http://localhost:${port_cors}`,
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
