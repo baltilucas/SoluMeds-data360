@@ -43,7 +43,7 @@ router.get("/:idTipoExamen", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { nombre: tipoExamen } = req.body;
+    const { tipoExamen } = req.body;
 
     if (!tipoExamen) {
       return res

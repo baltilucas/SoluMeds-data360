@@ -57,9 +57,5 @@ export class AlergiasPage implements OnInit {
     }
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   async addAlergia() {}
 }

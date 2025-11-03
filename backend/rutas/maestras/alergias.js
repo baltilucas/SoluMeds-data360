@@ -29,15 +29,15 @@ router.get("/:idAlergia", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { nombre } = req.body;
+    const { nombreAlergia } = req.body;
 
-    if (!nombre) {
+    if (!nombreAlergia) {
       return res.status(400).json({ message: "Falta el nombre de la alergia" });
     }
 
     const sql = `INSERT INTO ${tabla[0]} (nombreAlergia) VALUES (?);`;
 
-    await db.query(sql, [nombre]);
+    await db.query(sql, [nombreAlergia]);
 
     return res
       .status(201)
@@ -94,13 +94,13 @@ router.put("/:idAlergia", async (req, res) => {
       return res.status(400).json({ message: "ID inválido" });
     }
 
-    if (!body.nombre) {
+    if (!body.nombreAlergia) {
       return res.status(400).json({ message: "Falta el nombre de la alergia" });
     }
 
     const [result] = await db.execute(
       "UPDATE alergia SET nombreAlergia = ? WHERE idAlergia = ?;",
-      [body.nombre, idAlergia]
+      [body.nombreAlergia, idAlergia]
     );
 
     if (result.affectedRows === 0) {

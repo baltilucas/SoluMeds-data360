@@ -44,7 +44,7 @@ router.get("/:idPaciente", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const {
-      nombre: nombrePaciente,
+      nombrePaciente,
       rut,
       fechaNacimiento,
       sexo,
