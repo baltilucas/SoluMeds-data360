@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class AlergiasPage implements OnInit {
   alergias: any[] = [];
 
-  link = 'http://localhost:4000';
+  link = 'http://54.166.37.210:4000';
 
   constructor(
     private location: Location,
