@@ -8,6 +8,23 @@ Sobre cada sección está el nombre y la ruta desde la que crecen las demás, po
 http://localhost:4000/alergias/
 ```
 
+## Índice
+
+- [Tablas Maestras](#tablas-maestras)
+  - [Alergias - `/alergias`](#alergias---alergias)
+  - [Enfermedades Crónicas - `/enfermedadescronicas`](#enfermedades-crónicas---enfermedadescronicas)
+  - [Exámenes - `/examenes`](#exámenes---examenes)
+  - [Intervenciones - `/intervenciones`](#intervenciones---intervenciones)
+  - [Medicamentos - `/medicamentos`](#medicamentos---medicamentos)
+  - [Pacientes - `/pacientes`](#pacientes---pacientes)
+  - [Principio Activo - `/principiosactivos`](#principio-activo---principiosactivos)
+  - [Tipo Examen - `/tipoexamenes`](#tipo-examen---tipoexamenes)
+  - [Vacunas - `/vacunas`](#vacunas---vacunas)
+
+- [Tablas Transaccionales](#tablas-transaccionales)
+  - [Alergias Paciente - `/alergiaspaciente`](#alergias-paciente---alergiaspaciente)
+
+
 ## Tablas Maestras
 
 En estas se ven las entidades principales, como alergias, medicamentos y demás.
@@ -229,3 +246,8 @@ En estas se ven las entidades principales, como alergias, medicamentos y demás.
   "componente": "Virus recombinante"
 }
 ```
+
+
+## Tablas Transaccionales
+
+### Alergias Paciente - `/alergiaspaciente`
