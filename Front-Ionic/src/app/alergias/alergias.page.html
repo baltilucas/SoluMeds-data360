@@ -28,7 +28,11 @@
       <ion-card-subtitle [color]="alergia.color">{{ alergia.nivel }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      {{ alergia.descripcion }}
+      <div *ngIf="alergia.fechaStr" class="fecha-diagnostico">Diagnóstico: {{ alergia.fechaStr }}</div>
+      <div *ngIf="alergia.descripcion; else noSintomas">{{ alergia.descripcion }}</div>
+      <ng-template #noSintomas>
+        <div class="no-sintomas">No hay síntomas registrados.</div>
+      </ng-template>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ingresaralergia',
@@ -22,7 +23,7 @@ export class IngresaralergiaPage implements OnInit {
   sintomas: string = '';
   idAlergia: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {}
 
@@ -44,6 +45,8 @@ export class IngresaralergiaPage implements OnInit {
     this.http.post('http://localhost:4000/alergiaspaciente', body).subscribe({
       next: (res) => {
         console.log('Alergia ingresada correctamente');
+        this.router.navigate(['/alergias']);
+
       },
       error: (err) => {
         console.log('Error al ingresar la alergia');

@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class AlergiasPage implements OnInit {
   alergias: any[] = [];
 
-  link = 'http://localhost:4000/';
+  link = 'http://localhost:4000';
 
   constructor(
     private location: Location,
@@ -29,9 +29,17 @@ ngOnInit() {
     next: (data) => {
       this.alergias = data.map((item, index) => ({
         id: index + 1,
-        titulo: item.nombre_alergia,
-        nivel: item.severidad,
-        color: this.getColor(item.severidad),
+        // nombre de la alergia
+        titulo: item.nombre_alergia || '—',
+        // severidad tal como viene (p.ej. 'LEVE', 'MODERADO')
+        nivel: item.severidad || '',
+        // color para la etiqueta según severidad
+        color: this.getColor(item.severidad || ''),
+        // síntomas/descripcion proveniente del backend
+        descripcion: item.sintomas || '',
+        // fecha de diagnóstico: guardamos la original y una versión formateada
+        fecha: item.fechaDiagnostico || null,
+        fechaStr: this.formatDate(item.fechaDiagnostico),
       }));
     },
     error: (err) => {
@@ -46,6 +54,7 @@ ngOnInit() {
   }
 
   getColor(nivel: string): string {
+    if (!nivel) return 'medium';
     switch (nivel.toLowerCase()) {
       case 'grave':
         return 'danger';
@@ -55,6 +64,22 @@ ngOnInit() {
         return 'secondary';
       default:
         return 'medium';
+    }
+  }
+
+  // Formatea una fecha ISO o similar a un string legible en español.
+  formatDate(dateInput: string | null | undefined): string {
+    try {
+      if (!dateInput) return '';
+      const d = new Date(dateInput);
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    } catch (e) {
+      return '';
     }
   }
 
