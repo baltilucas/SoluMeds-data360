@@ -164,7 +164,7 @@ CREATE TABLE alergiapaciente(
     idAlergia INT,
     idSeveridad INT,
     sintomas TEXT,
-    fechaDiagnostico DATE default curdate(),
+    fechaDiagnostico DATE default CURRENT_TIMESTAMP,
     PRIMARY KEY (idPaciente, idAlergia),
     FOREIGN KEY (idPaciente) REFERENCES paciente(idPaciente),
     FOREIGN KEY (idAlergia) REFERENCES alergia(idAlergia),
