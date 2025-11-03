@@ -24,21 +24,22 @@ export class AlergiasPage implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.http.get<any[]>(`${this.link}/alergiaspaciente/paciente/1`).subscribe({
-      next: (data) => {
-        this.alergias = data.map((item, index) => ({
-          id: index + 1,
-          titulo: item.nombre_alergia,
-          nivel: item.severidad,
-          color: this.getColor(item.gravedad),
-        }));
-      },
-      error: (err) => {
-        console.error('Error cargando alergias', err);
-      },
-    });
-  }
+ngOnInit() {
+  this.http.get<any[]>(`${this.link}/alergiaspaciente/paciente/1`).subscribe({
+    next: (data) => {
+      this.alergias = data.map((item, index) => ({
+        id: index + 1,
+        titulo: item.nombre_alergia,
+        nivel: item.severidad,
+        color: this.getColor(item.severidad),
+      }));
+    },
+    error: (err) => {
+      console.error('Error cargando alergias', err);
+    },
+  });
+}
+
 
   irCrearAlergia() {
     this.router.navigate(['/crearalergia']);

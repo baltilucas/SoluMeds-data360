@@ -7,16 +7,30 @@ const tabla = ["alergiapaciente", "Alergias del Paciente"];
 
 router.get("/paciente/:idPaciente", async (req, res) => {
   const idPaciente = parseInt(req.params.idPaciente, 10);
+
   try {
     const [rows] = await db.execute(
-      `SELECT * FROM ${tabla[0]} where idPaciente = ${idPaciente};`
+      `
+      SELECT 
+          a.nombreAlergia AS nombre_alergia,
+          s.severidad AS severidad,
+          ap.sintomas,
+          ap.fechaDiagnostico
+      FROM alergiapaciente ap
+      JOIN alergia a ON ap.idAlergia = a.idAlergia
+      LEFT JOIN severidad s ON ap.idSeveridad = s.idSeveridad
+      WHERE ap.idPaciente = ?
+      `,
+      [idPaciente] 
     );
+
     res.json(rows);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: `Error encontrando ${tabla[1]}` });
+    res.status(500).json({ message: "Error obteniendo alergias del paciente" });
   }
 });
+
 
 router.get("/alergia/:idAlergia", async (req, res) => {
   try {

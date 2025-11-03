@@ -24,7 +24,7 @@
           </ion-card-header>
 
           <ion-card-content>
-            <ion-input placeholder="Ingrese el alérgeno" type="text"></ion-input>
+            <ion-input placeholder="Ingrese el alérgeno" type="text" [(ngModel)]="alergeno"></ion-input>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -36,10 +36,10 @@
           </ion-card-header>
 
           <ion-card-content>
-            <ion-select label="Fixed label" label-placement="fixed" placeholder="Severidad de la Alergia">
-              <ion-select-option value="1">Leve</ion-select-option>
-              <ion-select-option value="2">Moderada</ion-select-option>
-              <ion-select-option value="3">Grave</ion-select-option>
+            <ion-select label="Fixed label" label-placement="fixed" placeholder="Severidad de la Alergia" [(ngModel)]="severidad">
+              <ion-select-option [value]="1">Leve</ion-select-option>
+              <ion-select-option [value]="2">Moderada</ion-select-option>
+              <ion-select-option [value]="3">Grave</ion-select-option>
             </ion-select>
           </ion-card-content>
         </ion-card>
@@ -52,13 +52,13 @@
           </ion-card-header>
 
           <ion-card-content>
-            <ion-input label="Descripción Sintomas" labelPlacement="stacked" placeholder="Tos"></ion-input>
+            <ion-input label="Descripción Sintomas" labelPlacement="stacked" placeholder="Tos" [(ngModel)]="sintomas"></ion-input>
           </ion-card-content>
         </ion-card>
       </ion-col>
 
       <ion-col>
-        <ion-button expand="block">
+        <ion-button expand="block" (click)="ingresarAlergia()">
           Ingresar Alergia
         </ion-button>
       </ion-col>
