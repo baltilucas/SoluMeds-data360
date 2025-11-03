@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/datos-paciente"></ion-back-button>
     </ion-buttons>
     <ion-title>Datos Personales</ion-title>
   </ion-toolbar>
@@ -14,49 +14,42 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card id="main-card">
-    <img alt="Silhouette of mountains"
+  <ion-card id="main-card" *ngIf="paciente">
+    <img alt="Foto del paciente"
       src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSi8pcWoC067tqYPJq5Ym0rufYWV9_Lqi4hUep5N5asY8XDVHFrzEZfuGykTwEV42ci8VKxQX2QDHeed92zSGPZWN-H4JxCTmI73vO_oZQ" />
     <ion-card-header>
-      <ion-card-title>Nombre: Gonzalo Valenzuela</ion-card-title>
+      <ion-card-title>Nombre: {{ paciente.nombrePaciente }}</ion-card-title>
     </ion-card-header>
   </ion-card>
 
-  <ion-list>
+  <ion-list *ngIf="paciente">
     <ion-item-group>
       <ion-item-divider>
         <ion-label> Información Básica </ion-label>
       </ion-item-divider>
 
       <ion-item>
-        <ion-label><b>Nombre Completo</b>: Gonzalo Valenzuela Hölzel </ion-label>
+        <ion-label><b>Nombre Completo</b>: {{ paciente.nombrePaciente }}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label><b>Edad:</b> 47 años 6 meses 12 días</ion-label>
+        <ion-label><b>RUT</b>: {{ paciente.rut }}</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-label><b>Sexo:</b> Masculino</ion-label>
+        <ion-label><b>Sexo:</b> {{ paciente.sexo === 1 ? 'Masculino' : 'Femenino' }}</ion-label>
       </ion-item>
 
     </ion-item-group>
 
     <ion-item-group>
       <ion-item-divider>
-        <ion-label> Información Médica </ion-label>
+        <ion-label> Información de Contacto </ion-label>
       </ion-item-divider>
 
       <ion-item>
-        <ion-label><b>Previsión:</b> Fonasa A</ion-label>
+        <ion-label><b>Dirección:</b> {{ paciente.direccion || 'No registrada' }}</ion-label>
       </ion-item>
-      <ion-item>
-        <ion-label><b>Seguro:</b> Clínica Los 3 Chanchitos</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label><b>Prais:</b> Si</ion-label>
-      </ion-item>
-
       <ion-item lines="none">
-        <ion-label><b>Correo Envio de Datos:</b> cvalenzuela@medisol.cl</ion-label>
+        <ion-label><b>Teléfono:</b> {{ paciente.telefono || 'No registrado' }}</ion-label>
       </ion-item>
 
     </ion-item-group>
