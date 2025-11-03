@@ -69,6 +69,6 @@ app.use("/recetas", recetas);
 app.use("/tipoexamenes", tipoexamenes);
 app.use("/vacunas", vacunas);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
 });
