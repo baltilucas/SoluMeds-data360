@@ -45,39 +45,71 @@ router.post("/", async (req, res) => {
   try {
     const {
       nombrePaciente,
+      segundoNombrePaciente,
       apellidoPaciente,
+      segundoApellidoPaciente,
+      correoPersonal,
+      correoSolumeds,
       rut,
       fechaNacimiento,
       sexo,
       direccion,
       telefono,
       idNacionalidad,
+      idPrevision,
+      prais
     } = req.body;
 
-    if (!nombrePaciente || !rut || !sexo) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Faltan campos obligatorios para ingresar (nombre, rut, sexo)",
-        });
+    // Validar campos obligatorios (NOT NULL)
+    if (
+      !nombrePaciente ||
+      !apellidoPaciente ||
+      !correoPersonal ||
+      !correoSolumeds ||
+      !fechaNacimiento ||
+      sexo === undefined ||
+      !telefono
+    ) {
+      return res.status(400).json({
+        message:
+          "Faltan campos obligatorios: nombrePaciente, apellidoPaciente, correoPersonal, correoSolumeds, fechaNacimiento, sexo o telefono.",
+      });
     }
 
     const sql = `
-  INSERT INTO ${tabla[0]} 
-  (nombrePaciente,apellidoPaciente, rut, fechaNacimiento, sexo, direccion, telefono, idNacionalidad)
-  VALUES (?,? , ?, ?, ?, ?, ?, ?);
-`;
+      INSERT INTO ${tabla[0]} (
+        nombrePaciente,
+        segundoNombrePaciente,
+        apellidoPaciente,
+        segundoApellidoPaciente,
+        correoPersonal,
+        correoSolumeds,
+        rut,
+        fechaNacimiento,
+        sexo,
+        direccion,
+        telefono,
+        idNacionalidad,
+        idPrevision,
+        prais
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    `;
 
     await db.query(sql, [
       nombrePaciente,
+      segundoNombrePaciente || null,
       apellidoPaciente,
-      rut,
+      segundoApellidoPaciente || null,
+      correoPersonal,
+      correoSolumeds,
+      rut || null,
       fechaNacimiento,
       sexo,
-      direccion,
+      direccion || null,
       telefono,
-      idNacionalidad,
+      idNacionalidad || null,
+      idPrevision || null,
+      prais ?? 0
     ]);
 
     return res.status(201).json({ message: `${tabla[1]} añadida al listado` });
@@ -86,6 +118,7 @@ router.post("/", async (req, res) => {
     return res.status(500).json({ message: `Error al añadir ${tabla[1]}` });
   }
 });
+
 
 router.delete("/:idPaciente", async (req, res) => {
   try {
