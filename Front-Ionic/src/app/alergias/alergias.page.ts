@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
-import { Router } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+
 @Component({
   selector: 'app-alergias',
   templateUrl: './alergias.page.html',
   styleUrls: ['./alergias.page.scss'],
   standalone: true,
-  imports: [RouterLink ,IonicModule, CommonModule, FormsModule, HttpClientModule],
+  imports: [RouterLink, IonicModule, CommonModule, FormsModule, HttpClientModule],
 })
-export class AlergiasPage implements OnInit {
+export class AlergiasPage implements OnInit, OnDestroy {
   alergias: any[] = [];
-
-  link = 'http://54.166.37.210:4000';
+  link = 'http://ec2-3-231-209-50.compute-1.amazonaws.com:4000';
+  private intervalo: any;
 
   constructor(
     private location: Location,
@@ -24,30 +24,41 @@ export class AlergiasPage implements OnInit {
     private router: Router
   ) {}
 
-ngOnInit() {
-  this.http.get<any[]>(`${this.link}/alergiaspaciente/paciente/1`).subscribe({
-    next: (data) => {
-      this.alergias = data.map((item, index) => ({
-        id: index + 1,
-        // nombre de la alergia
-        titulo: item.nombre_alergia || '—',
-        // severidad tal como viene (p.ej. 'LEVE', 'MODERADO')
-        nivel: item.severidad || '',
-        // color para la etiqueta según severidad
-        color: this.getColor(item.severidad || ''),
-        // síntomas/descripcion proveniente del backend
-        descripcion: item.sintomas || '',
-        // fecha de diagnóstico: guardamos la original y una versión formateada
-        fecha: item.fechaDiagnostico || null,
-        fechaStr: this.formatDate(item.fechaDiagnostico),
-      }));
-    },
-    error: (err) => {
-      console.error('Error cargando alergias', err);
-    },
-  });
-}
+  ngOnInit() {
+    // Cargar la primera vez
+    this.cargarAlergias();
 
+    // Recargar cada 2 segundos
+    this.intervalo = setInterval(() => {
+      this.cargarAlergias();
+    }, 2000);
+  }
+
+  ngOnDestroy() {
+    // Limpiar el intervalo cuando se abandona la página
+    if (this.intervalo) {
+      clearInterval(this.intervalo);
+    }
+  }
+
+  cargarAlergias() {
+    this.http.get<any[]>(`${this.link}/alergiaspaciente/paciente/1`).subscribe({
+      next: (data) => {
+        this.alergias = data.map((item, index) => ({
+          id: index + 1,
+          titulo: item.nombre_alergia || '—',
+          nivel: item.severidad || '',
+          color: this.getColor(item.severidad || ''),
+          descripcion: item.sintomas || '',
+          fecha: item.fechaDiagnostico || null,
+          fechaStr: this.formatDate(item.fechaDiagnostico),
+        }));
+      },
+      error: (err) => {
+        console.error('Error cargando alergias', err);
+      },
+    });
+  }
 
   irCrearAlergia() {
     this.router.navigate(['/crearalergia']);
@@ -67,7 +78,6 @@ ngOnInit() {
     }
   }
 
-  // Formatea una fecha ISO o similar a un string legible en español.
   formatDate(dateInput: string | null | undefined): string {
     try {
       if (!dateInput) return '';
@@ -78,7 +88,7 @@ ngOnInit() {
         month: 'long',
         day: 'numeric',
       });
-    } catch (e) {
+    } catch {
       return '';
     }
   }

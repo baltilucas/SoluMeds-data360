@@ -42,7 +42,7 @@ export class IngresaralergiaPage implements OnInit {
       sintomas: this.sintomas,
       fechaDiagnostico
     };
-    this.http.post('http://localhost:4000/alergiaspaciente', body).subscribe({
+    this.http.post('http://ec2-3-231-209-50.compute-1.amazonaws.com:4000/alergiaspaciente', body).subscribe({
       next: (res) => {
         console.log('Alergia ingresada correctamente');
         this.router.navigate(['/alergias']);

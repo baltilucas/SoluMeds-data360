@@ -60,7 +60,6 @@ router.post("/", async (req, res) => {
       prais
     } = req.body;
 
-    // Validar campos obligatorios (NOT NULL)
     if (
       !nombrePaciente ||
       !apellidoPaciente ||

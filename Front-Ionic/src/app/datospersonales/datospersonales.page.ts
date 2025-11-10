@@ -16,7 +16,7 @@ export class DatospersonalesPage implements OnInit {
 
   paciente: any = {};
 
-  link = 'http://ec2-3-231-209-50.compute-1.amazonaws.com:4000/';
+  link = 'http://ec2-3-231-209-50.compute-1.amazonaws.com:4000';
 
   constructor(private http: HttpClient) { }
 
