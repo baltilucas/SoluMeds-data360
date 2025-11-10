@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
   try {
     const {
       nombrePaciente,
+      apellidoPaciente,
       rut,
       fechaNacimiento,
       sexo,
@@ -64,12 +65,13 @@ router.post("/", async (req, res) => {
 
     const sql = `
   INSERT INTO ${tabla[0]} 
-  (nombrePaciente, rut, fechaNacimiento, sexo, direccion, telefono, idNacionalidad)
-  VALUES (?, ?, ?, ?, ?, ?, ?);
+  (nombrePaciente,apellidoPaciente, rut, fechaNacimiento, sexo, direccion, telefono, idNacionalidad)
+  VALUES (?,? , ?, ?, ?, ?, ?, ?);
 `;
 
     await db.query(sql, [
       nombrePaciente,
+      apellidoPaciente,
       rut,
       fechaNacimiento,
       sexo,
