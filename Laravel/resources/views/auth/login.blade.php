@@ -32,16 +32,27 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
+        <!-- Login Buttons -->
+        <div class="flex flex-col items-center justify-end mt-4 space-y-2">
+            <x-primary-button class="w-full">
                 {{ __('Log in') }}
             </x-primary-button>
+
+            <!-- Botón Google -->
+            <a href="{{ route('google.redirect') }}" 
+               class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white font-semibold rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                {{ __('Login with Google') }}
+            </a>
         </div>
+
+        @if (Route::has('password.request'))
+            <div class="mt-2 text-center">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" 
+                   href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            </div>
+        @endif
     </form>
 </x-guest-layout>
+
