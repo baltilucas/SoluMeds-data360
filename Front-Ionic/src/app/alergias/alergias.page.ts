@@ -14,7 +14,7 @@ import { RouterLink, Router } from '@angular/router';
 })
 export class AlergiasPage implements OnInit, OnDestroy {
   alergias: any[] = [];
-  link = 'http://ec2-3-231-209-50.compute-1.amazonaws.com:4000';
+  link = 'http://ec2-3-80-29-195.compute-1.amazonaws.com:4000';
   private intervalo: any;
 
   constructor(
