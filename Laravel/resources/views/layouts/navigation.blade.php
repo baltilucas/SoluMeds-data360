@@ -18,7 +18,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('paciente')" :active="request()->routeIs('paciente')">
+                    <x-nav-link :href="url('paciente/'.rand(1,18))" :active="request()->routeIs('paciente') || request()->is('paciente/*')">
                         {{ __('Paciente') }}
                     </x-nav-link>
                 </div>
