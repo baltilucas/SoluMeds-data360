@@ -50,3 +50,4 @@ ionic serve
 
 También es valido `ionic s`.
 
+tamo de pana
