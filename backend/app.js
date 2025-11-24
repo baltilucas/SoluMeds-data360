@@ -54,7 +54,7 @@ app.get("/", async (req, res) => {
     res.status(500).json({ message: "mal po" });
   }
 });
-app.use("/textract", textractRoutes);
+
 app.use("/alergias", alergias);
 app.use("/alergiaspaciente", alergiaspaciente);
 app.use("/detallesrecetas", detallereceta);
@@ -67,6 +67,7 @@ app.use("/principiosactivos", principioActivo);
 app.use("/recetas", recetas);
 app.use("/tipoexamenes", tipoexamenes);
 app.use("/vacunas", vacunas);
+app.use("/textract", textractRoutes);
 
 function getPublicIP() {
   const ifaces = os.networkInterfaces();
