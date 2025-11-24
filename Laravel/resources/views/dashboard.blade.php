@@ -1,46 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- Sidebar CSS -->
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-</head>
-
-<body>
-
-    <!-- Navbar -->
-    @include('components.dashboard-navbar')
-
-    <div class="wrapper">
-
-        <!-- Sidebar -->
-        @include('components.sidebar')
-
-        <!-- Contenido -->
-        <div id="content" class="content">
-            @yield('content')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    {{ __("You're logged in!") }}
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Sidebar Toggle Script -->
-    <script>
-        const sidebar = document.getElementById('sidebar');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('hidden');
-        }
-    </script>
-
-</body>
-</html>
+</x-app-layout>

@@ -41,6 +41,11 @@
                         Login
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('register') ? 'active' : '' }}" href="{{ url('/register') }}">
+                        Sing Up
+                    </a>
+                </li>
 
             </ul>
         </div>
