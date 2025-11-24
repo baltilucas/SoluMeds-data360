@@ -26,14 +26,21 @@
             <div class="carousel-item active">
                 <div class="p-5 text-center text-white" style="height:350px; background:#FF8137;">
                     <h1>SoluMeds</h1>
-                    <p class="lead">La plataforma médica moderna</p>
+                    <p class="lead">Tu solución a datos médicos</p>
                 </div>
             </div>
 
             <div class="carousel-item">
                 <div class="p-5 text-center text-white" style="height:350px; background:#a400b3;">
-                    <h1>Agendamiento rápido</h1>
-                    <p class="lead">Optimiza la gestión de tus pacientes</p>
+                    <h1>Todo En un Solo Lugar</h1>
+                    <p class="lead">Gestiona tus examenes, vacunas y mucho más a la palma de tu mano</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="p-5 text-center text-white" style="height:350px; background:#96264E;">
+                    <h1>Seguridad en Emergencias</h1>
+                    <p class="lead">Deja tus datos a disposición en caso de un accidente</p>
                 </div>
             </div>
 

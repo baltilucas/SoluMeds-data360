@@ -1,6 +1,7 @@
 import express from "express";
 import { db } from "./db.js";
 import cors from "cors";
+import os from "os";
 
 import alergias from "./rutas/maestras/alergias.js";
 import alergiaspaciente from "./rutas/transaccionales/alergiasPacientes.js";
@@ -16,6 +17,8 @@ import tipoexamenes from "./rutas/maestras/tipoExamenes.js";
 import vacunas from "./rutas/maestras/vacunas.js";
 
 import dotenv from "dotenv";
+
+
 dotenv.config();
 
 const app = express();
@@ -63,6 +66,20 @@ app.use("/recetas", recetas);
 app.use("/tipoexamenes", tipoexamenes);
 app.use("/vacunas", vacunas);
 
+function getPublicIP() {
+  const ifaces = os.networkInterfaces();
+  for (const iface of Object.values(ifaces)) {
+    for (const config of iface) {
+      if (config.family === "IPv4" && !config.internal) {
+        return config.address;
+      }
+    }
+  }
+}
+
+const publicIP = getPublicIP();
+
+// Iniciar servidor
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+  console.log(`Servidor corriendo en http://${publicIP}:${port}`);
 });
