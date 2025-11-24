@@ -15,6 +15,8 @@ import principioActivo from "./rutas/maestras/principioActivo.js";
 import recetas from "./rutas/transaccionales/recetas.js";
 import tipoexamenes from "./rutas/maestras/tipoExamenes.js";
 import vacunas from "./rutas/maestras/vacunas.js";
+import textractRoutes from "./rutas/servicios/textract.js";
+
 
 import dotenv from "dotenv";
 
@@ -52,7 +54,7 @@ app.get("/", async (req, res) => {
     res.status(500).json({ message: "mal po" });
   }
 });
-
+app.use("/textract", textractRoutes);
 app.use("/alergias", alergias);
 app.use("/alergiaspaciente", alergiaspaciente);
 app.use("/detallesrecetas", detallereceta);
