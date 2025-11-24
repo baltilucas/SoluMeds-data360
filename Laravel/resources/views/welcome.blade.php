@@ -52,6 +52,22 @@
         <button class="carousel-control-next" type="button" data-bs-target="#carouselText" data-bs-slide="next">
             <span class="carousel-control-next-icon"></span>
         </button>
+        {{-- Descripción de la empresa con botón --}}
+<div class="container mt-4 text-center">
+    <div class="p-5 bg-light rounded">
+        <h2>Acerca de SoluMeds</h2>
+        <p class="lead">
+            SoluMeds ofrece un servicio integral que unifica datos médicos en una sola plataforma. 
+            Contamos con tres aplicaciones: una para pacientes, donde pueden acceder y gestionar su información; 
+            una para paramédicos, que permite acceso rápido a datos de emergencia; 
+            y un perfil para médicos, que facilita el uso de datos médicos para salvar vidas.
+        </p>
+        <a href="/register" class="btn btn-lg" style="background-color:#FF8137; color:white; font-weight:bold; padding:15px 40px; margin-top:20px;">
+            Regístrate Ahora
+        </a>
+    </div>
+</div>
+
     </div>
 
     {{-- Contenido de cada página --}}
