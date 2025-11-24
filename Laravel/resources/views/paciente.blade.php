@@ -22,14 +22,12 @@
                             </div>
                             <div class="card-body">
                                 <p><strong>Nombre:</strong> {{ $paciente[0]['nombrePaciente'] }}</p>
-                                <p><strong>Apellido:</strong> {{ $paciente[0]['apellidoPaciente'] }}</p>
-                                <p><strong>Correo:</strong> {{ $paciente[0]['correoPersonal'] }}</p>
-                                <p><strong>RUT:</strong> {{ $paciente[0]['rut'] }}</p>
+                                <p><strong>Apellido:</strong> <i>Censurado</i></p>
                                 <p><strong>Fecha de Nacimiento:</strong> {{ \Carbon\Carbon::parse($paciente[0]['fechaNacimiento'])->format('d/m/Y') }}</p>
                                 <p><strong>Sexo:</strong> {{ $paciente[0]['sexo'] == 1 ? 'Masculino' : 'Femenino' }}</p>
-                                <p><strong>Dirección:</strong> {{ $paciente[0]['direccion'] }}</p>
-                                <p><strong>Teléfono:</strong> {{ $paciente[0]['telefono'] }}</p>
-                                <p><strong>Nacionalidad:</strong> {{ $paciente[0]['idNacionalidad'] }}</p>
+                                <p><strong>Teléfono:</strong> <i>Censurado</i></p>                                
+                                <p><strong>Prais:</strong> {{ $paciente[0]['prais'] == 1 ? 'Sí' : 'No' }}</p>
+
                             </div>
                         </div>
                     @endif

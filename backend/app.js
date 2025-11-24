@@ -16,6 +16,7 @@ import recetas from "./rutas/transaccionales/recetas.js";
 import tipoexamenes from "./rutas/maestras/tipoExamenes.js";
 import vacunas from "./rutas/maestras/vacunas.js";
 import textractRoutes from "./rutas/servicios/textract.js";
+import consultasDashboard from "./rutas/consultasDashboard.js"
 
 
 import dotenv from "dotenv";
@@ -67,6 +68,7 @@ app.use("/principiosactivos", principioActivo);
 app.use("/recetas", recetas);
 app.use("/tipoexamenes", tipoexamenes);
 app.use("/vacunas", vacunas);
+app.use("/consultas", consultasDashboard)
 app.use("/textract", textractRoutes);
 
 function getPublicIP() {
