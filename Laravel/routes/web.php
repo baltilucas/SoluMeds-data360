@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleController;
 
 // Ruta principal
 Route::get('/', function () {
@@ -37,3 +38,9 @@ Route::middleware('auth')->group(function () {
 });
  
 require __DIR__.'/auth.php';
+
+// -----------------------------------
+// RUTAS PARA LOGIN CON GOOGLE
+// -----------------------------------
+Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
