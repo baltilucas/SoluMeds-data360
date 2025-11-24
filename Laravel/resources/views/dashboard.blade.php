@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="mt-6" style="max-width: 550px; max-height: 450px; margin: auto;">
+    <div class="mt-6" style="max-width: 500px; max-height: 400px; margin: auto;">
     <canvas id="alergiasChart"></canvas>
 </div>
 
