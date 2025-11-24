@@ -1,0 +1,50 @@
+/* Altura estándar de navbar Bootstrap */
+:root {
+    --navbar-height: 56px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: calc(100vh - var(--navbar-height));
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    background: #212529;
+    overflow-y: auto;
+    padding-top: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Estado colapsado (oculta sidebar) */
+.sidebar.collapsed {
+    transform: translateX(-250px);
+}
+
+/* Contenido del sitio */
+.content {
+    margin-left: 250px;
+    margin-top: var(--navbar-height);
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Cuando sidebar está oculta */
+.sidebar.collapsed + .content {
+    margin-left: 0;
+}
+
+/* ---------------------- */
+/*      RESPONSIVE        */
+/* ---------------------- */
+
+/* Móviles: sidebar oculta por defecto */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-250px);
+    }
+
+    .content {
+        margin-left: 0 !important;
+    }
+}
