@@ -156,31 +156,77 @@ router.put("/:idAlergia/:idPaciente", async (req, res) => {
   }
 });
 
-router.get("/consulta/:nombre", async (req, res) => {
-  const nombre = req.params.nombre;
-  try {
-    const [rows] = await db.execute(
-      `
-      SELECT idAlergia
-      FROM alergia
-      WHERE nombreAlergia LIKE ?
-      LIMIT 1;
-      `,
-      [`%${nombre}%`]
-    );
+async function buscarAlergiaPorNombre(nombre) {
+  const [rows] = await db.execute(
+    `
+    SELECT idAlergia
+    FROM alergia
+    WHERE nombreAlergia LIKE ?
+    LIMIT 1;
+    `,
+    [`%${nombre}%`]
+  );
 
-    if (rows.length === 0) {
-      return res.json({ id: -1 });
+  return rows.length > 0 ? rows[0].idAlergia : -1;
+}
+
+
+router.post("/ingreso/:idPaciente/:nombre", async (req, res) => {
+  const idPaciente = parseInt(req.params.idPaciente, 10);
+  const nombre = req.params.nombre.trim();
+  const { idSeveridad, sintomas, fechaDiagnostico } = req.body;
+
+  if (!idPaciente || isNaN(idPaciente)) {
+    return res.status(400).json({ message: "ID de paciente inválido" });
+  }
+
+  if (!nombre) {
+    return res.status(400).json({ message: "Debe ingresar el nombre de la alergia" });
+  }
+
+  if (!idSeveridad) {
+    return res.status(400).json({ message: "Debe enviar la severidad" });
+  }
+
+  try {
+    // 1️⃣ Buscar si existe la alergia usando tu función
+    let idAlergia = await buscarAlergiaPorNombre(nombre);
+
+    // 2️⃣ Si NO existe, crearla
+    if (idAlergia === -1) {
+      const sqlInsertAlergia = `
+        INSERT INTO alergia (nombreAlergia)
+        VALUES (?);
+      `;
+      const [result] = await db.execute(sqlInsertAlergia, [nombre]);
+      idAlergia = result.insertId; // obtener nuevo id
     }
 
-    return res.json({ id: rows[0].idAlergia });
+    // 3️⃣ Insertar en alergiapaciente
+    const sqlInsertRelacion = `
+      INSERT INTO alergiapaciente
+      (idPaciente, idAlergia, idSeveridad, sintomas, fechaDiagnostico)
+      VALUES (?, ?, ?, ?, ?);
+    `;
+
+    await db.execute(sqlInsertRelacion, [
+      idPaciente,
+      idAlergia,
+      idSeveridad,
+      sintomas || null,
+      fechaDiagnostico || null,
+    ]);
+
+    return res.status(201).json({
+      message: "Alergia registrada correctamente",
+      idAlergia: idAlergia,
+    });
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Error consultando alergia" });
+    return res.status(500).json({ message: "Error ingresando alergia" });
   }
 });
-
 
 
 
