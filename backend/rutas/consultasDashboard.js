@@ -95,4 +95,17 @@ ORDER BY MIN(TIMESTAMPDIFF(YEAR, fechaNacimiento, CURDATE()));
   }
 });
 
+router.get("/usuarios", async (req, res) => {
+  try {
+    const [rows] = await db.execute(`
+      SELECT count(*) from paciente;
+    `);
+
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error obteniendo el numero de pacientes;" });
+  }
+});
+
 export default router;
