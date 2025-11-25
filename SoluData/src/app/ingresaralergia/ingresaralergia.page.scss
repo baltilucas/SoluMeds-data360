@@ -1,0 +1,35 @@
+ion-toolbar {
+  --background: #6ea6cc;
+  --color: #fff;
+}
+
+.card-alergeno {
+  --background: linear-gradient(135deg, #f9d29d, #fbc27f); /* dorado pastel */
+}
+
+.card-severidad {
+  --background: linear-gradient(135deg, #f28c8c, #f5b7b1); /* rojo suave */
+}
+
+.card-sintomas {
+  --background: linear-gradient(135deg, #a8e6cf, #d0f0c0); /* verde claro */
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #8a252f, #5c1a1f); /* rojo profundo */
+    --color: #ffffff;
+  }
+
+  .card-alergeno {
+    --background: linear-gradient(135deg, #5a3e0f, #8b5e1e); /* dorado oscuro */
+  }
+
+  .card-severidad {
+    --background: linear-gradient(135deg, #7a1c1c, #a22727); /* rojo intenso */
+  }
+
+  .card-sintomas {
+    --background: linear-gradient(135deg, #0f3f2b, #276644); /* verde profundo */
+  }
+}

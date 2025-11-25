@@ -1,0 +1,7 @@
+{
+  "name": "SoluData",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
