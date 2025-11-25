@@ -158,7 +158,6 @@ router.put("/:idAlergia/:idPaciente", async (req, res) => {
 
 router.get("/consulta/:nombre", async (req, res) => {
   const nombre = req.params.nombre;
-
   try {
     const [rows] = await db.execute(
       `
