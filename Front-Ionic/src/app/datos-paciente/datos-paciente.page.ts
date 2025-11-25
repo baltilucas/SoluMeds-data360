@@ -22,9 +22,5 @@ export class DatosPacientePage implements OnInit {
   ngOnInit() {
   }
 
-  goBack() {
-    this.location.back();  
-  }
-
-
+ 
 }
