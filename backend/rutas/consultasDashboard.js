@@ -39,4 +39,29 @@ router.get("/alergias/top", async (req, res) => {
   }
 });
 
+router.get("/sexo", async (req, res) => {
+  try {
+    const [rows] = await db.execute(`
+      SELECT sexo, COUNT(*) AS total 
+      FROM paciente 
+      GROUP BY sexo;
+    `);
+
+    const mapped = rows.map(r => ({
+      sexo: r.sexo === 1 ? "Masculino" :
+            r.sexo === 0 ? "Femenino" :
+            "Desconocido",
+      total: r.total
+    }));
+
+    res.json(mapped);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error obteniendo sexo" });
+  }
+});
+
+
+
 export default router;
