@@ -98,7 +98,7 @@ ORDER BY MIN(TIMESTAMPDIFF(YEAR, fechaNacimiento, CURDATE()));
 router.get("/usuarios", async (req, res) => {
   try {
     const [rows] = await db.execute(`
-      SELECT count(*) from paciente;
+      SELECT count(*) as usuarios from paciente;
     `);
 
     res.json(rows);
