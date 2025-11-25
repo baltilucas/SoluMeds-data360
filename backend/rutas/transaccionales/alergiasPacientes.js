@@ -156,6 +156,33 @@ router.put("/:idAlergia/:idPaciente", async (req, res) => {
   }
 });
 
+router.get("/consulta/:nombre", async (req, res) => {
+  const nombre = req.params.nombre;
+
+  try {
+    const [rows] = await db.execute(
+      `
+      SELECT idAlergia
+      FROM alergia
+      WHERE nombreAlergia LIKE ?
+      LIMIT 1;
+      `,
+      [`%${nombre}%`]
+    );
+
+    if (rows.length === 0) {
+      return res.json({ id: -1 });
+    }
+
+    return res.json({ id: rows[0].idAlergia });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Error consultando alergia" });
+  }
+});
+
+
 
 
 export default router;
