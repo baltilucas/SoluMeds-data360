@@ -1,0 +1,21 @@
+ion-toolbar {
+  --background: linear-gradient(135deg, #e6a2a4, #fae3d9);
+  --color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-toolbar {
+    --background: linear-gradient(135deg, #442b2d, #663f43);
+    --color: #ffffff;
+  }
+}
+
+.agregar-alergia {
+  --background: #8ad0ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .agregar-alergia {
+    --background: #8a252f;
+  }
+}
