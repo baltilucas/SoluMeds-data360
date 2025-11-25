@@ -1,23 +1,31 @@
-<div class="sidebar bg-dark text-white p-3">
-    
-    <h4 class="mb-4">Menú</h4>
+<div id="sidebar" class="sidebar bg-dark text-white">
+    <div class="sidebar-header px-3 py-3">
+        <h4 class="m-0">Menú</h4>
+    </div>
 
-    <ul class="nav flex-column">
+    <ul class="nav flex-column px-2">
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ url('/') }}">Inicio</a>
+            <a href="{{ url('/') }}" class="nav-link text-white">
+                <i class="fa fa-home me-2"></i> Inicio
+            </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ url('/contacto') }}">Contacto</a>
+            <a href="{{ url('/contacto') }}" class="nav-link text-white">
+                <i class="fa fa-envelope me-2"></i> Contacto
+            </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ url('/usuarios') }}">Usuarios</a>
+            <a href="{{ url('/usuarios') }}" class="nav-link text-white">
+                <i class="fa fa-users me-2"></i> Usuarios
+            </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ url('/reportes') }}">Reportes</a>
+            <a href="{{ url('/reportes') }}" class="nav-link text-white">
+                <i class="fa fa-bar-chart me-2"></i> Reportes
+            </a>
         </li>
     </ul>
-
 </div>
