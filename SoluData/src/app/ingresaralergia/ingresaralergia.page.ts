@@ -21,36 +21,38 @@ export class IngresaralergiaPage implements OnInit {
   alergeno: string = '';
   severidad: number = 1;
   sintomas: string = '';
-  idAlergia: number | null = null;
-
+  
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {}
 
   ingresarAlergia() {
-    const idAlergia = Number(this.alergeno);
-    if (!idAlergia || isNaN(idAlergia)) {
-      alert('El campo Alérgeno debe ser un número (ID de alergia)');
+    if (!this.alergeno) {
+      alert('Debe ingresar un alérgeno');
       return;
     }
-    const idPaciente = 1;
-    const fechaDiagnostico = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
+
+    const idPaciente = 1; // luego puedes traerlo del storage o login
+    const fechaDiagnostico = new Date().toISOString().split('T')[0];
+
     const body = {
-      idPaciente,
-      idAlergia,
       idSeveridad: this.severidad,
       sintomas: this.sintomas,
       fechaDiagnostico
     };
-    this.http.post('http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/alergiaspaciente', body).subscribe({
-      next: (res) => {
-        console.log('Alergia ingresada correctamente');
-        this.router.navigate(['/alergias']);
 
+    // 👉 IMPORTANTE: usar backticks para template literal
+    const url = `http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/alergiaspaciente/ingreso/${idPaciente}/${this.alergeno}`;
+
+    this.http.post(url, body).subscribe({
+      next: (res) => {
+        console.log('Alergia ingresada correctamente', res);
+        this.router.navigate(['/alergias']);
       },
       error: (err) => {
-        console.log('Error al ingresar la alergia');
+        console.error('Error al ingresar la alergia', err);
       }
     });
   }
 }
+

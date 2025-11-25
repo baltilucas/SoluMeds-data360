@@ -20,12 +20,20 @@
           <ion-card-header>
             <ion-card-title>Alergias</ion-card-title>
           </ion-card-header>
+
           <ion-card-content>
-            <p>Mariscos</p>
-            <p>Polen</p>
-            <p>Penicilina</p>
+            <ng-container *ngIf="alergias.length > 0; else noAlergias">
+              <p *ngFor="let item of alergias">
+                {{ item.titulo }}
+              </p>
+            </ng-container>
+
+            <ng-template #noAlergias>
+              <p>No hay alergias registradas.</p>
+            </ng-template>
           </ion-card-content>
         </ion-card>
+
       </ion-col>
 
       <ion-col size="12" size-md="6" size-lg="4">

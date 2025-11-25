@@ -18,7 +18,6 @@ export class AlergiasPage implements OnInit, OnDestroy {
   private intervalo: any;
 
   constructor(
-    private location: Location,
     private alertCtrl: AlertController,
     private http: HttpClient,
     private router: Router
@@ -60,9 +59,6 @@ export class AlergiasPage implements OnInit, OnDestroy {
     });
   }
 
-  irCrearAlergia() {
-    this.router.navigate(['/crearalergia']);
-  }
 
   getColor(nivel: string): string {
     if (!nivel) return 'medium';

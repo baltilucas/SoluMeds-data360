@@ -3,11 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const endpoints = [
-  "/alergias/top",
-  "/sexo",
-  "/edad",
-];
+const endpoints = ["/alergias/top", "/sexo", "/edad"];
 
 router.get("/", async (req, res) => {
   try {
@@ -60,15 +56,13 @@ router.get("/sexo", async (req, res) => {
       GROUP BY sexo;
     `);
 
-    const mapped = rows.map(r => ({
-      sexo: r.sexo === 1 ? "Masculino" :
-            r.sexo === 0 ? "Femenino" :
-            "Desconocido",
-      total: r.total
+    const mapped = rows.map((r) => ({
+      sexo:
+        r.sexo === 1 ? "Masculino" : r.sexo === 0 ? "Femenino" : "Desconocido",
+      total: r.total,
     }));
 
     res.json(mapped);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error obteniendo sexo" });
@@ -95,13 +89,10 @@ ORDER BY MIN(TIMESTAMPDIFF(YEAR, fechaNacimiento, CURDATE()));
     `);
 
     res.json(rows);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error obteniendo grupos de edad" });
   }
 });
-
-
 
 export default router;
