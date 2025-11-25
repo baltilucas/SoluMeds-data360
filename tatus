@@ -1,0 +1,64 @@
+ SoluData/.browserslistrc                           |    15 [32m+[m
+ SoluData/.editorconfig                             |    16 [32m+[m
+ SoluData/.eslintrc.json                            |    46 [32m+[m
+ SoluData/.gitignore                                |    70 [32m+[m
+ SoluData/.vscode/extensions.json                   |     5 [32m+[m
+ SoluData/.vscode/settings.json                     |     3 [32m+[m
+ SoluData/angular.json                              |   151 [32m+[m
+ SoluData/capacitor.config.ts                       |     9 [32m+[m
+ SoluData/ionic.config.json                         |     7 [32m+[m
+ SoluData/karma.conf.js                             |    44 [32m+[m
+ SoluData/package-lock.json                         | 19139 [32m+++++++++++++++++++[m
+ SoluData/package.json                              |    64 [32m+[m
+ SoluData/src/app/alergias/alergias.page.html       |    38 [32m+[m
+ SoluData/src/app/alergias/alergias.page.scss       |    21 [32m+[m
+ SoluData/src/app/alergias/alergias.page.spec.ts    |    17 [32m+[m
+ SoluData/src/app/alergias/alergias.page.ts         |    97 [32m+[m
+ SoluData/src/app/app.component.html                |     3 [32m+[m
+ SoluData/src/app/app.component.scss                |     0
+ SoluData/src/app/app.component.spec.ts             |    16 [32m+[m
+ SoluData/src/app/app.component.ts                  |    11 [32m+[m
+ SoluData/src/app/app.routes.ts                     |    41 [32m+[m
+ .../src/app/enfermedades/enfermedades.page.html    |    46 [32m+[m
+ .../src/app/enfermedades/enfermedades.page.scss    |    11 [32m+[m
+ .../src/app/enfermedades/enfermedades.page.spec.ts |    17 [32m+[m
+ SoluData/src/app/enfermedades/enfermedades.page.ts |    43 [32m+[m
+ SoluData/src/app/examenes/examenes.page.html       |    51 [32m+[m
+ SoluData/src/app/examenes/examenes.page.scss       |    31 [32m+[m
+ SoluData/src/app/examenes/examenes.page.spec.ts    |    17 [32m+[m
+ SoluData/src/app/examenes/examenes.page.ts         |   144 [32m+[m
+ SoluData/src/app/home/home.page.html               |    93 [32m+[m
+ SoluData/src/app/home/home.page.scss               |    77 [32m+[m
+ SoluData/src/app/home/home.page.spec.ts            |    18 [32m+[m
+ SoluData/src/app/home/home.page.ts                 |    26 [32m+[m
+ .../app/ingresaralergia/ingresaralergia.page.html  |    70 [32m+[m
+ .../app/ingresaralergia/ingresaralergia.page.scss  |    35 [32m+[m
+ .../ingresaralergia/ingresaralergia.page.spec.ts   |    17 [32m+[m
+ .../app/ingresaralergia/ingresaralergia.page.ts    |    56 [32m+[m
+ .../app/intervenciones/intervenciones.page.html    |    38 [32m+[m
+ .../app/intervenciones/intervenciones.page.scss    |     0
+ .../app/intervenciones/intervenciones.page.spec.ts |    17 [32m+[m
+ .../src/app/intervenciones/intervenciones.page.ts  |    43 [32m+[m
+ .../src/app/medicamentos/medicamentos.page.html    |    13 [32m+[m
+ .../src/app/medicamentos/medicamentos.page.scss    |     0
+ .../src/app/medicamentos/medicamentos.page.spec.ts |    17 [32m+[m
+ SoluData/src/app/medicamentos/medicamentos.page.ts |    20 [32m+[m
+ SoluData/src/app/vacunas/vacunas.page.html         |    34 [32m+[m
+ SoluData/src/app/vacunas/vacunas.page.scss         |    11 [32m+[m
+ SoluData/src/app/vacunas/vacunas.page.spec.ts      |    17 [32m+[m
+ SoluData/src/app/vacunas/vacunas.page.ts           |    55 [32m+[m
+ SoluData/src/assets/icon/favicon.png               |   Bin [31m0[m -> [32m930[m bytes
+ SoluData/src/assets/shapes.svg                     |     1 [32m+[m
+ SoluData/src/environments/environment.prod.ts      |     3 [32m+[m
+ SoluData/src/environments/environment.ts           |    16 [32m+[m
+ SoluData/src/global.scss                           |   105 [32m+[m
+ SoluData/src/index.html                            |    26 [32m+[m
+ SoluData/src/main.ts                               |    14 [32m+[m
+ SoluData/src/polyfills.ts                          |    55 [32m+[m
+ SoluData/src/test.ts                               |    14 [32m+[m
+ SoluData/src/theme/variables.scss                  |     2 [32m+[m
+ SoluData/src/zone-flags.ts                         |     6 [32m+[m
+ SoluData/tsconfig.app.json                         |    15 [32m+[m
+ SoluData/tsconfig.json                             |    31 [32m+[m
+ SoluData/tsconfig.spec.json                        |    18 [32m+[m
+ 63 files changed, 21136 insertions(+)
