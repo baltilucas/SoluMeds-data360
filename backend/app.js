@@ -45,6 +45,7 @@ const endpoints = [
   "/recetas",
   "/tipoexamenes",
   "/vacunas",
+  "/consultas"
 ];
 
 app.get("/", async (req, res) => {
