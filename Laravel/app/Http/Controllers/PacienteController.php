@@ -2,30 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Http; // Para usar el HTTP Client de Laravel
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
 class PacienteController extends Controller
 {
-   public function show($id)
-{
-    // Hacer la solicitud a la API de Express
-    $response = Http::get("http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/pacientes/{$id}");
+    public function show($id)
+    {
+        // Datos del paciente
+        $responsePaciente = Http::get("http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/pacientes/{$id}");
+        $paciente = $responsePaciente->successful() ? $responsePaciente->json() : null;
 
-    // Verificamos si la respuesta es exitosa
-    if ($response->successful()) {
-        $paciente = $response->json(); // Los datos vienen en formato JSON
+        // Datos de medicamentos
+        $responseMeds = Http::get("http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/consultaspaciente/medicamento/{$id}");
+        $medicamentos = $responseMeds->successful() ? $responseMeds->json() : [];
 
-        // Verifica si hay al menos un paciente en la respuesta
-        if (count($paciente) > 0) {
-            return view('paciente', compact('paciente'));
-        } else {
+        if (!$paciente || count($paciente) == 0) {
             return view('paciente', ['error' => 'Paciente no encontrado']);
         }
+
+        return view('paciente', compact('paciente', 'medicamentos'));
     }
-
-    // Si la API no responde correctamente, muestra un mensaje de error
-    return view('paciente', ['error' => 'No se pudo obtener los datos del paciente']);
-}
-
 }

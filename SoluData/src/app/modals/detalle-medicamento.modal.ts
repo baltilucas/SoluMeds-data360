@@ -1,20 +1,24 @@
 // src/app/modals/detalle-medicamento.modal.ts
 import { Component, Input } from '@angular/core';
-import { ModalController, IonicModule } from '@ionic/angular';
+import { ModalController, IonicModule, IonCardSubtitle } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-detalle-medicamento-modal',
   template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>{{ nombre }}</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="cerrar()">Cerrar</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-      <ion-subtitle>Medicamento: {{ principioActivo }}</ion-subtitle>
-    </ion-header>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{ nombre }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="cerrar()">Cerrar</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-title size="small">Medicamento: {{ principioActivo }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
 
     <ion-content class="ion-padding">
       <ul>
