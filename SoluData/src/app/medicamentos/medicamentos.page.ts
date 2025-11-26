@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule, AlertController, ModalController } from '@ionic/angular';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
+import { DetalleMedicamentoModal } from '../modals/detalle-medicamento.modal';
 
 @Component({
   selector: 'app-medicamentos',
@@ -27,7 +28,8 @@ export class MedicamentosPage implements OnInit, OnDestroy {
     private location: Location,
     private alertCtrl: AlertController,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private modalCtrl: ModalController // <-- agregar esto
   ) {}
 
   ngOnInit() {
@@ -39,42 +41,44 @@ export class MedicamentosPage implements OnInit, OnDestroy {
       this.cargarMedicamentos();
     }, 2000);
   }
-    ngOnDestroy() {
+  ngOnDestroy() {
     // Limpiar el intervalo cuando se abandona la página
     if (this.intervalo) {
       clearInterval(this.intervalo);
     }
   }
 
-cargarMedicamentos() {
-  this.http.get<any[]>(`${this.link}/consultaspaciente/medicamento/1`).subscribe({
-    next: (data) => {
-      this.medicamentos = data.map((item, index) => {
-        const dias = item.diasRestantes ?? 0;
+  cargarMedicamentos() {
+    this.http
+      .get<any[]>(`${this.link}/consultaspaciente/medicamento/1`)
+      .subscribe({
+        next: (data) => {
+          this.medicamentos = data.map((item, index) => {
+            const dias = item.diasRestantes ?? 0;
 
-        return {
-          id: index + 1,
-          doctor: item.nombreDoctor || '—',
-          fechaReceta: item.fechaReceta || null,
-          fechaRecetaStr: this.formatDate(item.fechaReceta),
-          nombre: item.nombre || '—',
-          dosis: item.dosis || 100,
-          formato: item.formato || '',
-          frecuencia: item.frecuencia || '',
-          horaInicio: item.horaInicio || '',
-          finalReceta: item.finalReceta || null,
-          finalRecetaStr: this.formatDate(item.finalReceta),
-          diasRestantes: dias,
-          tipo: dias > 25 ? 'Crónico' : 'Temporal',
-        };
+            return {
+              id: index + 1,
+              doctor: item.nombreDoctor || '—',
+              fechaReceta: item.fechaReceta || null,
+              fechaRecetaStr: this.formatDate(item.fechaReceta),
+              nombre: item.nombre || '—',
+              dosis: item.dosis || 100,
+              formato: item.formato || '',
+              frecuencia: item.frecuencia || '',
+              horaInicio: item.horaInicio || '',
+              principioActivo: item.principioActivo || '',
+              finalReceta: item.finalReceta || null,
+              finalRecetaStr: this.formatDate(item.finalReceta),
+              diasRestantes: dias,
+              tipo: dias > 25 ? 'Crónico' : 'Temporal',
+            };
+          });
+        },
+        error: (err) => {
+          console.error('Error cargando medicamentos', err);
+        },
       });
-    },
-    error: (err) => {
-      console.error('Error cargando medicamentos', err);
-    },
-  });
-}
-
+  }
 
   getColor(nivel: string): string {
     if (!nivel) return 'medium';
@@ -105,22 +109,20 @@ cargarMedicamentos() {
     }
   }
 
-  async verDetalles(alergia: any) {
-    const { id, ...infoSinId } = alergia;
-
-    const mensaje = `Cantidad: ${infoSinId.cantidad} mg
-       Frecuencia: cada ${infoSinId.frecuencia} horas
-       Recetado Por: ${infoSinId.doctor}
-       periodo: ${infoSinId.diasRestantes} dias restantes
-       Duración: ${infoSinId.tipo}`;
-
-    const alert = await this.alertCtrl.create({
-      header: infoSinId.nombre,
-      subHeader: `Tipo: ${infoSinId.funcion}`,
-      message: mensaje,
-      buttons: ['Cerrar'],
+  async verDetalles(med: any) {
+    const modal = await this.modalCtrl.create({
+      component: DetalleMedicamentoModal,
+      componentProps: {
+        nombre: med.nombre,
+        principioActivo: med.principioActivo,
+        cantidad: med.dosis,
+        frecuencia: med.frecuencia,
+        doctor: med.doctor,
+        diasRestantes: med.diasRestantes,
+        tipo: med.tipo,
+      },
     });
 
-    await alert.present();
+    await modal.present();
   }
 }

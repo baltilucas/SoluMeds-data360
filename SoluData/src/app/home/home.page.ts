@@ -19,12 +19,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class HomePage {
   alergias: any[] = [];
+  medicamentos: any[] = [];
   link = 'http://ec2-3-80-29-195.compute-1.amazonaws.com:4000';
   private intervalo: any;
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.cargarAlergias();
+    this.cargarMedicamentos();
   }
 
   cargarAlergias() {
@@ -42,5 +44,24 @@ export class HomePage {
         console.error('Error cargando alergias', err);
       },
     });
+  }
+
+  cargarMedicamentos() {
+    this.http
+      .get<any[]>(`${this.link}/consultaspaciente/medicamento/1`)
+      .subscribe({
+        next: (data) => {
+          const lista = data.map((item, index) => ({
+            id: index + 1,
+            nombre: item.nombre || '—',
+            dosis: item.dosis ?? '',
+          }));
+
+          this.medicamentos = lista.slice(0, 3);
+        },
+        error: (err) => {
+          console.error('Error cargando medicamentos', err);
+        },
+      });
   }
 }

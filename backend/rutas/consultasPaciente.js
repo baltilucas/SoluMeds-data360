@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const endpoints = ["/medicamento/:idPaciente",];
+const endpoints = ["/medicamento/:idPaciente","/vacunas/:idVacunas"];
 
 router.get("/", async (req, res) => {
   try {
@@ -42,7 +42,7 @@ JOIN formato f
     ON m.idFormato = f.idFormato
 JOIN principioActivo pa
     ON m.idPrincipio = pa.idPrincipio
-WHERE r.idPaciente = 1
+WHERE r.idPaciente = ?
   AND CURRENT_DATE <= DATE_ADD(r.fecha, INTERVAL dr.dias DAY);
 
       `,
@@ -56,6 +56,35 @@ WHERE r.idPaciente = 1
   }
 });
 
+
+router.get("/vacunas/:idPaciente", async (req, res) => {
+  try {
+    const { idPaciente } = req.params;
+
+    const [rows] = await db.execute(
+      `
+SELECT 
+    vp.fecha AS fecha,
+    v.nombreVacuna AS nombre,
+    vp.proveedor AS proveedor,
+    vp.establecimiento AS sede,
+    vp.dosis AS dosis
+FROM vacunapaciente vp
+JOIN vacuna v
+    ON vp.idVacuna = v.idVacuna
+WHERE vp.idPaciente = ?
+ORDER BY vp.idPaciente, vp.fecha;
+
+      `,
+      [idPaciente]  // <--- parámetro
+    );
+
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error obteniendo vacunas del paciente" });
+  }
+});
 
 
 export default router;

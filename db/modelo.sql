@@ -103,6 +103,30 @@ VALUES
         1,
         0
     );
+INSERT INTO paciente (nombrePaciente, segundoNombrePaciente, apellidoPaciente, segundoApellidoPaciente, correoPersonal, correoSolumeds, rut, fechaNacimiento, sexo, direccion, telefono, idNacionalidad, idPrevision, prais) VALUES
+('Lucas', 'Andrés', 'Pavez', 'Venegas', 'lucas.pavez@gmail.com', 'lucas.pavez@solumeds.cl', '12.345.678-5', '1990-03-15', 1, 'Av. Siempre Viva 123, Santiago', '912345678', 1, 2, 0),
+('Camila', 'Fernanda', 'González', 'Rojas', 'camila.gonzalez@gmail.com', 'camila.gonzalez@solumeds.cl', '11.234.567-0', '1985-07-22', 0, 'Calle Falsa 456, Valparaíso', '921234567', 1, 1, 1),
+('Matías', 'Ignacio', 'Soto', 'Cárdenas', 'matias.soto@gmail.com', 'matias.soto@solumeds.cl', '13.345.678-2', '1992-11-05', 1, 'Av. Providencia 789, Santiago', '932345678', 1, 2, 0),
+('Valentina', 'Isidora', 'López', 'Navarro', 'valentina.lopez@gmail.com', 'valentina.lopez@solumeds.cl', '14.456.789-1', '1995-01-30', 0, 'Calle Los Robles 321, Concepción', '943456789', 1, 1, 1),
+('Benjamín', 'Emiliano', 'Rojas', 'Fuentes', 'benjamin.rojas@gmail.com', 'benjamin.rojas@solumeds.cl', '15.567.890-8', '1988-09-17', 1, 'Av. Los Leones 654, Santiago', '954567890', 1, 2, 0),
+('Isidora', 'María', 'Vega', 'Paredes', 'isidora.vega@gmail.com', 'isidora.vega@solumeds.cl', '16.678.901-6', '1993-12-10', 0, 'Calle Las Flores 987, Valdivia', '965678901', 1, 1, 1),
+('Santiago', 'José', 'Castillo', 'Morales', 'santiago.castillo@gmail.com', 'santiago.castillo@solumeds.cl', '17.789.012-3', '1989-05-08', 1, 'Av. Chile 123, La Serena', '976789012', 1, 2, 0),
+('Fernanda', 'Catalina', 'Muñoz', 'Aguirre', 'fernanda.munoz@gmail.com', 'fernanda.munoz@solumeds.cl', '18.890.123-0', '1991-08-20', 0, 'Calle Los Pinos 456, Temuco', '987890123', 1, 1, 1),
+('Joaquín', 'Alejandro', 'Rivas', 'Silva', 'joaquin.rivas@gmail.com', 'joaquin.rivas@solumeds.cl', '19.901.234-7', '1987-04-12', 1, 'Av. Libertador 789, Antofagasta', '998901234', 1, 2, 0),
+('María', 'José', 'Herrera', 'Cisterna', 'maria.herrera@gmail.com', 'maria.herrera@solumeds.cl', '20.012.345-4', '1994-06-25', 0, 'Calle Los Nogales 321, Chillán', '909012345', 1, 1, 1),
+('Diego', 'Andrés', 'Méndez', 'Carrasco', 'diego.mendez@gmail.com', 'diego.mendez@solumeds.cl', '21.123.456-1', '1990-02-18', 1, 'Av. Las Condes 654, Santiago', '910123456', 1, 2, 0),
+('Antonia', 'Isabel', 'Salazar', 'Figueroa', 'antonia.salazar@gmail.com', 'antonia.salazar@solumeds.cl', '22.234.567-8', '1996-10-02', 0, 'Calle El Roble 987, Valparaíso', '921234567', 1, 1, 1),
+('Gabriel', 'Fernando', 'Reyes', 'Pinto', 'gabriel.reyes@gmail.com', 'gabriel.reyes@solumeds.cl', '23.345.678-5', '1988-03-05', 1, 'Av. Los Carrera 123, Santiago', '932345678', 1, 2, 0),
+('Nicole', 'Camila', 'Torres', 'Arias', 'nicole.torres@gmail.com', 'nicole.torres@solumeds.cl', '24.456.789-2', '1992-07-19', 0, 'Calle Las Acacias 456, Concepción', '943456789', 1, 1, 1),
+('Tomás', 'Alejandro', 'Orellana', 'Riquelme', 'tomas.orellana@gmail.com', 'tomas.orellana@solumeds.cl', '25.567.890-9', '1985-12-28', 1, 'Av. Kennedy 789, Santiago', '954567890', 1, 2, 0),
+('Francisca', 'Isabel', 'Cáceres', 'Vargas', 'francisca.caceres@gmail.com', 'francisca.caceres@solumeds.cl', '26.678.901-7', '1993-09-14', 0, 'Calle Los Claveles 321, Temuco', '965678901', 1, 1, 1),
+('Nicolás', 'José', 'Gutiérrez', 'Molina', 'nicolas.gutierrez@gmail.com', 'nicolas.gutierrez@solumeds.cl', '27.789.012-4', '1989-11-30', 1, 'Av. Pedro de Valdivia 654, Santiago', '976789012', 1, 2, 0),
+('Catalina', 'María', 'Parra', 'Espinoza', 'catalina.parra@gmail.com', 'catalina.parra@solumeds.cl', '28.890.123-1', '1995-05-06', 0, 'Calle Los Aromos 987, Valdivia', '987890123', 1, 1, 1),
+('Javier', 'Andrés', 'Cortez', 'Maldonado', 'javier.cortez@gmail.com', 'javier.cortez@solumeds.cl', '29.901.234-8', '1991-03-21', 1, 'Av. O’Higgins 123, La Serena', '998901234', 1, 2, 0),
+('Paula', 'Isidora', 'Navarro', 'Rojas', 'paula.navarro@gmail.com', 'paula.navarro@solumeds.cl', '30.012.345-5', '1987-08-12', 0, 'Calle Los Olmos 456, Chillán', '909012345', 1, 1, 1),
+('Cristóbal', 'Benjamín', 'Fuentes', 'Vidal', 'cristobal.fuentes@gmail.com', 'cristobal.fuentes@solumeds.cl', '31.123.456-2', '1994-02-28', 1, 'Av. Matta 789, Santiago', '910123456', 1, 2, 0),
+('Daniela', 'Camila', 'Campos', 'Mena', 'daniela.campos@gmail.com', 'daniela.campos@solumeds.cl', '32.234.567-9', '1990-06-15', 0, 'Calle Los Robles 321, Concepción', '921234567', 1, 1, 1),
+('Felipe', 'Ignacio', 'Alarcón', 'Bravo', 'felipe.alarcon@gmail.com', 'felipe.alarcon@solumeds.cl', '33.345.678-6', '1988-09-03', 1, 'Av. Colón 654, Santiago', '932345678', 1, 2, 0);
 
 CREATE TABLE doctor(
     idDoctor INT PRIMARY KEY AUTO_INCREMENT,

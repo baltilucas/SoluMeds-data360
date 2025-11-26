@@ -18,8 +18,6 @@ export class AlergiasPage implements OnInit, OnDestroy {
   private intervalo: any;
 
   constructor(
-    private location: Location,
-    private alertCtrl: AlertController,
     private http: HttpClient,
     private router: Router
   ) {}

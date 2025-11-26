@@ -6,7 +6,7 @@
 
     <ion-avatar slot="end" [routerLink]="['/datospaciente']">
       <img alt="Silhouette of a person's head"
-           src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSi8pcWoC067tqYPJq5Ym0rufYWV9_Lqi4hUep5N5asY8XDVHFrzEZfuGykTwEV42ci8VKxQX2QDHeed92zSGPZWN-H4JxCTmI73vO_oZQ" />
+        src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSi8pcWoC067tqYPJq5Ym0rufYWV9_Lqi4hUep5N5asY8XDVHFrzEZfuGykTwEV42ci8VKxQX2QDHeed92zSGPZWN-H4JxCTmI73vO_oZQ" />
     </ion-avatar>
 
   </ion-toolbar>
@@ -60,11 +60,21 @@
           <ion-card-header>
             <ion-card-title>Medicamentos</ion-card-title>
           </ion-card-header>
+
           <ion-card-content>
-            <p>Ibuprofeno</p>
-            <p>Ecitalopram</p>
-            <p>Metformina</p>
+
+            <ng-container *ngIf="medicamentos.length > 0; else noMedicamentos">
+              <p *ngFor="let med of medicamentos">
+                {{ med.nombre }} - {{ med.dosis }} mg
+              </p>
+            </ng-container>
+
+            <ng-template #noMedicamentos>
+              <p>No hay medicamentos registrados.</p>
+            </ng-template>
+
           </ion-card-content>
+
         </ion-card>
       </ion-col>
 
