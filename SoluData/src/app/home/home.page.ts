@@ -20,6 +20,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class HomePage {
   alergias: any[] = [];
   medicamentos: any[] = [];
+  intervenciones: any[] = [];
   link = 'http://ec2-3-80-29-195.compute-1.amazonaws.com:4000';
   private intervalo: any;
   constructor(private http: HttpClient) {}
@@ -27,6 +28,7 @@ export class HomePage {
   ngOnInit() {
     this.cargarAlergias();
     this.cargarMedicamentos();
+    this.cargarIntervenciones();
   }
 
   cargarAlergias() {
@@ -61,6 +63,25 @@ export class HomePage {
         },
         error: (err) => {
           console.error('Error cargando medicamentos', err);
+        },
+      });
+  }
+
+  cargarIntervenciones() {
+    this.http
+      .get<any[]>(`${this.link}/consultaspaciente/intervenciones/1`)
+      .subscribe({
+        next: (data) => {
+          const lista = data.map((item, index) => ({
+            id: index + 1,
+            intervencion: item.Intervención || '—',
+          }));
+
+          // 👉 solo mostrar las TRES primeras intervenciones
+          this.intervenciones = lista.slice(0, 3);
+        },
+        error: (err) => {
+          console.error('Error cargando intervenciones', err);
         },
       });
   }

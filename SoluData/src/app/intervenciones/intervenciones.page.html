@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
+
     <ion-card *ngFor="let intervencion of intervenciones">
       <ion-card-header>
         <ion-card-title>{{ intervencion.intervencion }}</ion-card-title>
@@ -26,5 +26,5 @@
         <p>Hora: {{ intervencion.hora }}</p>
       </ion-card-content>
     </ion-card>
-  </ion-list>
+
 </ion-content>
