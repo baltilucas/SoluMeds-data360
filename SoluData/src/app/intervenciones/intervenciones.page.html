@@ -14,25 +14,17 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Apendicitis</ion-card-title>
-      <ion-card-subtitle>25-06-2015</ion-card-subtitle>
-    </ion-card-header>
+  <ion-list>
+    <ion-card *ngFor="let intervencion of intervenciones">
+      <ion-card-header>
+        <ion-card-title>{{ intervencion.intervencion }}</ion-card-title>
+        <ion-card-subtitle>{{ intervencion.fechaStr }}</ion-card-subtitle>
+      </ion-card-header>
 
-    <ion-card-content>
-      Intervención de apendisectomía realizada en el Hospital Clínico UC.
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Remoción Amigdalas</ion-card-title>
-      <ion-card-subtitle>17-03-2005</ion-card-subtitle>
-    </ion-card-header>
-
-    <ion-card-content>
-      Intervención de amigdalectomía realizada en el hospital Joaquín Aguirre.
-    </ion-card-content>
-  </ion-card>
+      <ion-card-content>
+        <p>Doctor: {{ intervencion.doctor }}</p>
+        <p>Hora: {{ intervencion.hora }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

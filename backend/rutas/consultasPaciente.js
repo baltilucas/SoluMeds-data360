@@ -86,7 +86,7 @@ ORDER BY vp.idPaciente, vp.fecha;
   }
 });
 
-router.get("/invervenciones/:idPaciente", async (req, res) => {
+router.get("/intvervenciones/:idPaciente", async (req, res) => {
   try {
     const { idPaciente } = req.params;
 
