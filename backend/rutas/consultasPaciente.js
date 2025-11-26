@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const endpoints = ["/medicamento/:idPaciente","/vacunas/:idVacunas", "/invervenciones/:idPaciente"];
+const endpoints = ["/medicamento/:idPaciente","/vacunas/:idVacunas", "/invervenciones/:idPaciente", "/enfermedaes/:idPaciente"];
 
 router.get("/", async (req, res) => {
   try {
