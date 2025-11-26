@@ -57,16 +57,14 @@ cargarMedicamentos() {
           doctor: item.nombreDoctor || '—',
           fechaReceta: item.fechaReceta || null,
           fechaRecetaStr: this.formatDate(item.fechaReceta),
-          medicamento: item.nombre || '—',
-          dosis: item.dosis || '',
+          nombre: item.nombre || '—',
+          dosis: item.dosis || 100,
           formato: item.formato || '',
           frecuencia: item.frecuencia || '',
           horaInicio: item.horaInicio || '',
           finalReceta: item.finalReceta || null,
           finalRecetaStr: this.formatDate(item.finalReceta),
           diasRestantes: dias,
-
-          // ✔️ Nuevo campo
           tipo: dias > 25 ? 'Crónico' : 'Temporal',
         };
       });
@@ -113,7 +111,7 @@ cargarMedicamentos() {
     const mensaje = `Cantidad: ${infoSinId.cantidad} mg
        Frecuencia: cada ${infoSinId.frecuencia} horas
        Recetado Por: ${infoSinId.doctor}
-       periodo: ${infoSinId.duracion} dias
+       periodo: ${infoSinId.diasRestantes} dias restantes
        Duración: ${infoSinId.tipo}`;
 
     const alert = await this.alertCtrl.create({

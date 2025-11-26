@@ -20,7 +20,7 @@ router.get("/medicamento/:idPaciente", async (req, res) => {
 
     const [rows] = await db.execute(
       `
-      SELECT 
+SELECT 
     d.nombreDoctor,
     r.fecha AS fechaReceta,
     m.nombreMedicamento AS nombre,
@@ -28,17 +28,20 @@ router.get("/medicamento/:idPaciente", async (req, res) => {
     f.nombreFormato AS formato,
     dr.frecuencia,
     dr.horaInicio,
+    pa.nombrePrincipio AS principioActivo,
     DATE_ADD(r.fecha, INTERVAL dr.dias DAY) AS finalReceta,
     DATEDIFF(DATE_ADD(r.fecha, INTERVAL dr.dias DAY), CURRENT_DATE) AS diasRestantes
 FROM receta r
-JOIN doctor d
+JOIN doctor d 
     ON r.idDoctor = d.idDoctor
 JOIN detallereceta dr 
     ON r.idReceta = dr.idReceta
-JOIN medicamento m
+JOIN medicamento m 
     ON dr.idMedicamento = m.idMedicamento
-JOIN formato f
+JOIN formato f 
     ON m.idFormato = f.idFormato
+JOIN principioActivo pa
+    ON m.idPrincipio = pa.idPrincipio
 WHERE r.idPaciente = 1
   AND CURRENT_DATE <= DATE_ADD(r.fecha, INTERVAL dr.dias DAY);
 
