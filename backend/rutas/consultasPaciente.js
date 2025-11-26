@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const endpoints = ["/medicamento/:idPaciente","/vacunas/:idVacunas", "/invervenciones/:idPaciente", "/enfermedaes/:idPaciente"];
+const endpoints = ["/medicamento/:idPaciente","/vacunas/:idVacunas", "/invervenciones/:idPaciente", "/enfermedades/:idPaciente"];
 
 router.get("/", async (req, res) => {
   try {
@@ -153,7 +153,7 @@ WHERE ip.idPaciente = ?;
   }
 });
 
-router.get("/enfermedaes/:idPaciente", async (req, res) => {
+router.get("/enfermedades/:idPaciente", async (req, res) => {
   try {
     const { idPaciente } = req.params;
 
