@@ -21,22 +21,27 @@ router.get("/medicamento/:idPaciente", async (req, res) => {
     const [rows] = await db.execute(
       `
       SELECT 
-        d.nombreDoctor,
-        r.fecha AS fechaReceta,
-        m.nombreMedicamento AS medicamento,
-        dr.frecuencia,
-        dr.horaInicio,
-        DATE_ADD(r.fecha, INTERVAL dr.dias DAY) AS finalReceta,
-        DATEDIFF(DATE_ADD(r.fecha, INTERVAL dr.dias DAY), CURRENT_DATE) AS diasRestantes
-      FROM receta r
-      JOIN doctor d
-          ON r.idDoctor = d.idDoctor
-      JOIN detallereceta dr 
-          ON r.idReceta = dr.idReceta
-      JOIN medicamento m
-          ON dr.idMedicamento = m.idMedicamento
-      WHERE r.idPaciente = ?
-        AND CURRENT_DATE <= DATE_ADD(r.fecha, INTERVAL dr.dias DAY)
+    d.nombreDoctor,
+    r.fecha AS fechaReceta,
+    m.nombreMedicamento AS medicamento,
+    m.dosis,
+    f.nombreFormato AS formato,
+    dr.frecuencia,
+    dr.horaInicio,
+    DATE_ADD(r.fecha, INTERVAL dr.dias DAY) AS finalReceta,
+    DATEDIFF(DATE_ADD(r.fecha, INTERVAL dr.dias DAY), CURRENT_DATE) AS diasRestantes
+FROM receta r
+JOIN doctor d
+    ON r.idDoctor = d.idDoctor
+JOIN detallereceta dr 
+    ON r.idReceta = dr.idReceta
+JOIN medicamento m
+    ON dr.idMedicamento = m.idMedicamento
+JOIN formato f
+    ON m.idFormato = f.idFormato
+WHERE r.idPaciente = 1
+  AND CURRENT_DATE <= DATE_ADD(r.fecha, INTERVAL dr.dias DAY);
+
       `,
       [idPaciente]  // <--- parámetro
     );
