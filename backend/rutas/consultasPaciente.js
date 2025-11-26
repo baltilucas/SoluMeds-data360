@@ -86,5 +86,31 @@ ORDER BY vp.idPaciente, vp.fecha;
   }
 });
 
+router.get("/invervenciones/:idPaciente", async (req, res) => {
+  try {
+    const { idPaciente } = req.params;
+
+    const [rows] = await db.execute(
+      `
+SELECT 
+    i.nombreIntervención AS Intervención,
+    d.nombreDoctor AS Doctor,
+    ip.fechaIntervencion AS Fecha,
+    ip.horaIntervención AS Hora
+FROM intervencionpaciente ip
+JOIN intervencion i ON ip.idIntervencion = i.idIntervencion
+JOIN doctor d ON ip.idDoctor = d.idDoctor
+WHERE ip.idPaciente = ?;
+      `,
+      [idPaciente]  
+    );
+
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error obteniendo intervenciones del paciente" });
+  }
+});
+
 
 export default router;
