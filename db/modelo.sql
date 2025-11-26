@@ -402,7 +402,7 @@ VALUES
     ('Cirugía laparoscópica de vesícula'),
     ('Biopsia quirúrgica');
 
-CREATE TABLE intervecnionpaciente(
+CREATE TABLE intervencionpaciente(
     idPaciente INT,
     idIntervencion INT,
     idDoctor INT,
@@ -413,6 +413,20 @@ CREATE TABLE intervecnionpaciente(
     FOREIGN KEY (idIntervencion) REFERENCES intervencion(idIntervencion),
     FOREIGN KEY (idDoctor) REFERENCES doctor(idDoctor)
 );
+
+INSERT INTO intervencionpaciente (idPaciente, idIntervencion, idDoctor, fechaIntervencion, horaIntervención)
+VALUES
+    (1, 1, 2, '2025-01-15', '09:30:00'),
+    (1, 3, 1, '2025-03-22', '11:00:00'),
+    (2, 5, 3, '2024-12-10', '14:15:00'),
+    (2, 2, 2, '2025-02-18', '08:45:00'),
+    (3, 7, 4, '2025-05-05', '10:00:00'),
+    (3, 4, 1, '2025-06-12', '13:30:00'),
+    (4, 8, 2, '2025-07-20', '09:00:00'),
+    (5, 6, 3, '2025-08-03', '15:45:00'),
+    (5, 10, 1, '2025-09-14', '12:30:00'),
+    (6, 9, 4, '2025-10-22', '16:00:00');
+
 
 CREATE TABLE tipoexamen(
     idTipoExamen INT PRIMARY KEY AUTO_INCREMENT,
