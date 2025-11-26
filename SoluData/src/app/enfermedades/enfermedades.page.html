@@ -14,33 +14,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
+  <ion-card *ngFor="let enf of enfermedades">
     <ion-card-header>
-      <ion-card-title>Hipertensión</ion-card-title>
-      <ion-card-subtitle color="danger">Crónica</ion-card-subtitle>
+      <ion-card-title>{{ enf.titulo }}</ion-card-title>
+      <ion-card-subtitle color="primary">
+        Diagnosticado el {{ enf.fechaStr }}
+      </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <p><strong>Última medición:</strong> 145/90 mmHg</p>
-      <p><strong>Medicamentos:</strong> Enalapril 10 mg, diaria</p>
-      <p><strong>Notas:</strong> Controlar presión cada mañana y registrar.</p>
+      <p><strong>ID enfermedad:</strong> {{ enf.id }}</p>
+      <p><strong>Notas:</strong> 
+        No hay notas registradas para esta enfermedad.
+      </p>
     </ion-card-content>
   </ion-card>
-
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Diabetes</ion-card-title>
-      <ion-card-subtitle color="primary">Tipo 2</ion-card-subtitle>
-    </ion-card-header>
-
-    <ion-card-content>
-      <p><strong>Último control de glucosa:</strong> 120 mg/dL</p>
-      <p><strong>Medicamentos:</strong> Metformina 500 mg, 2 veces al día</p>
-      <p><strong>Notas:</strong> Dieta balanceada y ejercicio diario.</p>
-    </ion-card-content>
-  </ion-card>
-
 
 
 </ion-content>
