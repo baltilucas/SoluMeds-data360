@@ -67,7 +67,7 @@
 
         <!-- Gráfico 2: Distribución por edad -->
         <div class="bg-white shadow rounded-lg p-4">
-            <h3 class="font-semibold text-center mb-3">Distribución por edad</h3>
+            <h3 class="font-semibold text-center mb-3">Grupos de Usuarios Por edad</h3>
             <div style="height: 300px;">
                 <canvas id="chart2"></canvas>
             </div>

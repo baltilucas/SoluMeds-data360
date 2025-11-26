@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 const router = express.Router();
 
-const endpoints = ["/alergias/top", "/sexo", "/edad"];
+const endpoints = ["/alergias/top", "/sexo", "/edad","/usuarios"];
 
 router.get("/", async (req, res) => {
   try {

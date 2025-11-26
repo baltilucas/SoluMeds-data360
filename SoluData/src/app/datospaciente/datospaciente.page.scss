@@ -1,0 +1,11 @@
+#main-card
+{
+    float:none;
+}
+
+@media (min-width: 1250px) {
+  #main-card {
+    float: left;
+  }
+}
+
