@@ -1,49 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-vacunas',
   templateUrl: './vacunas.page.html',
   styleUrls: ['./vacunas.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, CommonModule, FormsModule, HttpClientModule],
 })
-export class VacunasPage implements OnInit {
-  vacunas = [
-    { id: 1, fecha: new Date('2024-01-31'), nombre: 'Anual Influenza', proveedor: 'Pfizer', sede: 'Cesfam Garín' },
-    { id: 2, fecha: new Date('2023-05-12'), nombre: 'COVID-19 Refuerzo', proveedor: 'Moderna', sede: 'Cesfam Centro' },
-    { id: 3, fecha: new Date('2022-11-03'), nombre: 'Hepatitis B', proveedor: 'GSK', sede: 'Cesfam Norte' },
-    { id: 4, fecha: new Date('2021-07-19'), nombre: 'Tétanos', proveedor: 'Sanofi', sede: 'Cesfam Sur' },
-    { id: 5, fecha: new Date('2020-03-28'), nombre: 'Varicela', proveedor: 'MSD', sede: 'Cesfam Centro' },
-    { id: 6, fecha: new Date('2019-10-14'), nombre: 'Influenza', proveedor: 'Pfizer', sede: 'Cesfam Garín' },
-    { id: 7, fecha: new Date('2021-12-01'), nombre: 'Sarampión', proveedor: 'GSK', sede: 'Cesfam Norte' },
-    { id: 8, fecha: new Date('2022-06-08'), nombre: 'COVID-19 Inicial', proveedor: 'Pfizer', sede: 'Cesfam Sur' },
-    { id: 9, fecha: new Date('2023-09-22'), nombre: 'Difteria', proveedor: 'Sanofi', sede: 'Cesfam Centro' },
-    { id: 10, fecha: new Date('2020-08-16'), nombre: 'HPV', proveedor: 'MSD', sede: 'Cesfam Norte' }
-  ];
-
+export class VacunasPage implements OnInit, OnDestroy {
+  vacunas: any[] = [];
   vacunasPorAnio: { [anio: string]: any[] } = {};
+  link = 'http://ec2-3-80-29-195.compute-1.amazonaws.com:4000';
+  private intervalo: any;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.vacunas.forEach((vacuna) => {
-      const anio = vacuna.fecha.getFullYear().toString();
-      if (!this.vacunasPorAnio[anio]) {
-        this.vacunasPorAnio[anio] = [];
-      }
-      this.vacunasPorAnio[anio].push(vacuna);
+ngOnInit() {
+  this.cargarVacunas();
+
+  // Refrescar cada 2 segundos como en medicamentos
+  this.intervalo = setInterval(() => {
+    this.cargarVacunas();
+  }, 2000);
+}
+
+
+  ngOnDestroy() {
+    if (this.intervalo) clearInterval(this.intervalo);
+  }
+  cargarVacunas() {
+    this.http.get<any[]>(`${this.link}/consultaspaciente/vacunas/1`).subscribe({
+      next: (data) => {
+        this.vacunas = data.map((item, index) => ({
+          id: index + 1,
+          fecha: item.fecha ? new Date(item.fecha) : null,
+          nombre: item.nombre || '—',
+          proveedor: item.proveedor || '—',
+          sede: item.sede || '—',
+        }));
+
+        // Organizar por año
+        this.vacunasPorAnio = {};
+        this.vacunas.forEach((vacuna) => {
+          const anio = vacuna.fecha?.getFullYear().toString() || '—';
+          if (!this.vacunasPorAnio[anio]) this.vacunasPorAnio[anio] = [];
+          this.vacunasPorAnio[anio].push(vacuna);
+        });
+      },
+      error: (err) => {
+        console.error('Error cargando vacunas', err);
+      },
     });
   }
 
   get anios(): string[] {
-    return Object.keys(this.vacunasPorAnio).sort((a, b) => parseInt(b) - parseInt(a));
+    return Object.keys(this.vacunasPorAnio).sort(
+      (a, b) => parseInt(b) - parseInt(a)
+    );
   }
 
   descargarVacuna(vacuna: any) {
-    const info = `Vacuna: ${vacuna.nombre}\nProveedor: ${vacuna.proveedor}\nSede: ${vacuna.sede}\nFecha: ${vacuna.fecha.toLocaleDateString()}`;
+    const info = `Vacuna: ${vacuna.nombre}\nProveedor: ${
+      vacuna.proveedor
+    }\nSede: ${vacuna.sede}\nFecha: ${vacuna.fecha.toLocaleDateString()}`;
     const blob = new Blob([info], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
