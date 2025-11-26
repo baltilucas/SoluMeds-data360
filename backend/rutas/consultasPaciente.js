@@ -56,6 +56,47 @@ WHERE r.idPaciente = ?
   }
 });
 
+router.get("/medicamento/historico/:idPaciente", async (req, res) => {
+  try {
+    const { idPaciente } = req.params;
+
+    const [rows] = await db.execute(
+      `
+SELECT 
+    d.nombreDoctor,
+    r.fecha AS fechaReceta,
+    m.nombreMedicamento AS nombre,
+    m.dosis,
+    f.nombreFormato AS formato,
+    dr.frecuencia,
+    dr.horaInicio,
+    pa.nombrePrincipio AS principioActivo,
+    DATE_ADD(r.fecha, INTERVAL dr.dias DAY) AS finalReceta,
+    DATEDIFF(DATE_ADD(r.fecha, INTERVAL dr.dias DAY), CURRENT_DATE) AS diasRestantes
+FROM receta r
+JOIN doctor d 
+    ON r.idDoctor = d.idDoctor
+JOIN detallereceta dr 
+    ON r.idReceta = dr.idReceta
+JOIN medicamento m 
+    ON dr.idMedicamento = m.idMedicamento
+JOIN formato f 
+    ON m.idFormato = f.idFormato
+JOIN principioActivo pa
+    ON m.idPrincipio = pa.idPrincipio
+WHERE r.idPaciente = ?;
+
+      `,
+      [idPaciente] 
+    );
+
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error obteniendo medicamentos historicos" });
+  }
+});
+
 
 router.get("/vacunas/:idPaciente", async (req, res) => {
   try {
