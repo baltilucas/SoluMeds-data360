@@ -23,7 +23,7 @@ router.get("/medicamento/:idPaciente", async (req, res) => {
       SELECT 
     d.nombreDoctor,
     r.fecha AS fechaReceta,
-    m.nombreMedicamento AS medicamento,
+    m.nombreMedicamento AS nombre,
     m.dosis,
     f.nombreFormato AS formato,
     dr.frecuencia,

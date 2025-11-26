@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/datos-paciente"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Medicamentos</ion-title>
   </ion-toolbar>
@@ -14,16 +14,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card *ngFor="let medicamento of medicamentos" (click)="verDetalles(medicamento)" button>
-    <ion-card-header>
-      <ion-card-title>{{ medicamento.nombre }}</ion-card-title>
-      <ion-card-subtitle [color]="medicamento.tipo === 'Crónico' ? 'danger' : 'primary'">
-        {{ medicamento.tipo }}
-      </ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      {{ medicamento.cantidad }} mg cada {{ medicamento.frecuencia }} horas.
-    </ion-card-content>
-  </ion-card>
+<ion-card *ngFor="let med of medicamentos" (click)="verDetalles(med)" button>
+  <ion-card-header>
+    <ion-card-title>{{ med.nombre }}</ion-card-title>
+
+    <ion-card-subtitle [color]="med.tipo === 'Crónico' ? 'danger' : 'primary'">
+      {{ med.tipo }}
+    </ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    {{ med.dosis }} mg cada {{ med.frecuencia }} horas.
+  </ion-card-content>
+</ion-card>
+
 
 </ion-content>
