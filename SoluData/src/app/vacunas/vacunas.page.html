@@ -15,20 +15,29 @@
   </ion-header>
 
 
-    <ng-container *ngFor="let anio of anios">
-    <ion-item-group>
-      <ion-item-divider>
-        <ion-label>{{ anio }}</ion-label>
-      </ion-item-divider>
+  <!-- 👉 Si no hay vacunas -->
+  <div *ngIf="anios.length === 0" class="ion-padding">
+    No hay vacunas para mostrar.
+  </div>
 
-      <ion-item
-        *ngFor="let vacuna of vacunasPorAnio[anio]; let last = last"
-        [lines]="last ? 'none' : 'full'"
-      >
-        <ion-label>
-          {{ vacuna.fecha | date: 'dd/MM/yyyy' }} - {{ vacuna.nombre }} 
-        </ion-label>
-      </ion-item>
-    </ion-item-group>
+  <!-- 👉 Si sí hay vacunas -->
+  <ng-container *ngIf="anios.length > 0">
+    <ng-container *ngFor="let anio of anios">
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>{{ anio }}</ion-label>
+        </ion-item-divider>
+
+        <ion-item
+          *ngFor="let vacuna of vacunasPorAnio[anio]; let last = last"
+          [lines]="last ? 'none' : 'full'"
+        >
+          <ion-label>
+            {{ vacuna.fecha | date: 'dd/MM/yyyy' }} - {{ vacuna.nombre }}
+          </ion-label>
+        </ion-item>
+
+      </ion-item-group>
+    </ng-container>
   </ng-container>
 </ion-content>

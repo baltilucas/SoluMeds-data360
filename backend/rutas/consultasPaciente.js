@@ -153,5 +153,30 @@ WHERE ip.idPaciente = ?;
   }
 });
 
+router.get("/enfermedaes/:idPaciente", async (req, res) => {
+  try {
+    const { idPaciente } = req.params;
+
+    const [rows] = await db.execute(
+      `
+SELECT 
+    ecp.idEnfermedadCronica,
+    ec.nombreEnfermedad,
+    ecp.fechaDiagnostico
+FROM enfermedadcronicapaciente ecp
+JOIN enfermedadcronica ec
+      ON ecp.idEnfermedadCronica = ec.idEnfermedadCronica
+where ecp.idPaciente=?
+ORDER BY ecp.fechaDiagnostico;
+      `,
+      [idPaciente]  
+    );
+
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error obteniendo enfermedades del paciente" });
+  }
+});
 
 export default router;
