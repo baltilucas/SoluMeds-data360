@@ -1,53 +1,54 @@
-# SoluMeds-data360
+# Manual de Uso
 
-El proyecto es un ejercicio de desarrollo de 3 vistas y perfiles de uso de un sistema de menejo de datos de fichas medicas para usuarios, esto tiene el objetivo de potencialmente unificar los datos de pacientes, permitiendoles acceder facilmente a sus datos personales y por otro lado a los investigadores del área de datos acceder a datos reales dados consensuadamente.
+## Requisitos Base 
 
-Su backend está en express.js y tiene 3 perfiles principales, desarrollados en Ionic, Laravel y Flutter.
+Se requiere tener instalado previamente
 
-### Backend ExpressJS
+- Node.Js v20 o superior
 
-Se tiene un backend en express, para ejeuctarlo basta con tener NodeJs instalado en versión 20 o superior y posteriormente ejecutar en la carpeta backend
+- Composer
 
-```bash
-npm install
-```
+- php 8.2 o superior
 
-Luego basta con ejecutar `node app.js` o bien
+Donde los recursos para instalar están en:
 
-```bash
-npm start
-```
+- [Instrucciones Instalación PHP](https://www.php.net/manual/es/install.php)
 
+- [Repositorio de FNM disponible en windows, linux y mac](https://github.com/Schniz/fnm)
 
-## Ionic - Perfil de Paciente
+- [Instalación Composer](https://getcomposer.org/download/)
 
-El objetivo es brindar a pacientes y usuarios del sistema de salud publico y privada un acceso sencillo a sus datos médicos, examenes e historial.
+## Ionic
 
-Para la instalación se requiere node en versión 20 o superior, posteriormente se instala ionic de manera global ejecutando:
+A continuación están las instrucciones para instalar Ionic y el repositorio.
+
+### Instalación Ionic 
+
+Para utilizar Ionic primero se requiere el cli, por lo que se debe ejecutar:
 
 ```bash
 npm install -g @ionic/cli
 ```
 
-Verificando instalación:
+Posteriormente desde la terminal se debe ubicar en la carpeta SoluData y ejecutar
 
 ```bash
-ionic --version
-```
-
-
-Posteriormente aplicar una instalación de paquetes necesarios utilizando
-
-```bash
+#En linux
+cd SoluData
 npm install
 ```
 
-Finalmente para ejecutar el MVP se utiliza:
+### Ejecución Ionic
+
+Desde la carpeta *SoluData* ejecutar
 
 ```bash
 ionic serve
 ```
 
-También es valido `ionic s`.
+o bien
 
-tamo de pana
+```bash
+ionic s
+```
+

@@ -46,6 +46,7 @@ export class EnfermedadesPage implements OnInit, OnDestroy {
           this.enfermedades = data.map((item, index) => ({
             id: index + 1,
             titulo: item.nombreEnfermedad || '—',
+            idEnfermedadCronica: item.idEnfermedadCronica || '',
             fecha: item.fechaDiagnostico,
             fechaStr: this.formatDate(item.fechaDiagnostico),
           }));
