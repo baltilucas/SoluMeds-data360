@@ -28,6 +28,10 @@ Donde los recursos para instalar están en:
 
 - [instalación Android Studio](https://developer.android.com/codelabs/basic-android-kotlin-compose-install-android-studio?hl=es-419)
 
+- [Instalación MySql](https://dev.mysql.com/downloads/installer/)
+
+- [Instalación MariaDB](https://mariadb.org/download/)
+
 ## Ionic
 
 A continuación están las instrucciones para instalar Ionic y el repositorio.
