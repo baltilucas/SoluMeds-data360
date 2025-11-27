@@ -22,8 +22,8 @@ class _PacienteState extends State<Paciente> {
 
   Future<void> fetchData() async {
     try {
-      final pacienteRes = await http.get(Uri.parse('http://54.166.37.210:4000/pacientes/1'));
-      final alergiasRes = await http.get(Uri.parse('http://54.166.37.210:4000/alergiaspaciente/paciente/1'));
+      final pacienteRes = await http.get(Uri.parse('http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/pacientes/1'));
+      final alergiasRes = await http.get(Uri.parse('http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/alergiaspaciente/paciente/1'));
 
       if (pacienteRes.statusCode == 200 && alergiasRes.statusCode == 200) {
         setState(() {

@@ -26,7 +26,7 @@ class _CrearPacientePageState extends State<CrearPacientePage> {
   int idPrevision = 1;
   int prais = 0;
 
-  final String apiUrl = 'http://54.166.37.210:4000/pacientes';
+  final String apiUrl = 'http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/pacientes';
 
   Future<void> crearPaciente() async {
     if (nombreController.text.isEmpty || rutController.text.isEmpty || sexo == null) {

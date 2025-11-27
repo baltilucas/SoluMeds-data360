@@ -67,9 +67,50 @@ ionic s
 ```
 
 ## Flutter
-Teniendo previamente FLutter instalado ya sea globalmente o el sdk de manera local en la carpeta Front-Flutter.
+Las instrucciónes para la instalación global de flutter están en el link, no obstante se puede lograr una ejecución local mediante la extensión de VsCode.
 
+### Instalación en entorno
+Utilizando VSCode instalar las extensiones de Dart y Flutter, estas permitiran instalar los paquetes requeridos en la carpeta local y mediante el uso de run, run and debug se podrá probar el proyecto.
+
+También se puede ejecutar con si se tiene un dispositivo de android studio conectado, en caso contrario la misma app se ejecuta en navegador o escritorio según se desee.
+
+```bash
+flutter run
+```
 
 
 ## Laravel
 
+Para laravel se requiere tener el archivo `.env`, este se encuentra en la carpeta OneDrive adjunta en la entrega.
+
+Este archivo debe copiarse dentro de la carpeta raíz del proyecto Laravel.
+
+Antes de iniciar el proyecto, abrir el archivo .env y modificar:
+
+``ìni
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=fichasmedicas
+DB_USERNAME=usuario
+DB_PASSWORD=clave
+```
+
+Ejecutar desde la raiz del proyecto:
+
+```bash
+composer install
+```
+Para instalar todas las dependencias necesarias.
+
+Ejecutar para crear las tablas necesarias.
+
+
+```bash
+php artisan migrate
+```
+
+Para iniciar el pryecto ejecutar:
+
+```bash
+php artisan serve
+```

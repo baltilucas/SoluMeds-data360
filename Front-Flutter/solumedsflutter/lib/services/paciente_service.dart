@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class PacienteService {
-  static const String baseUrl = 'http://54.166.37.210:4000/pacientes';
+  static const String baseUrl = 'http://ec2-3-80-29-195.compute-1.amazonaws.com:4000/pacientes';
 
   static Future<List<dynamic>> getPacientes() async {
     final response = await http.get(Uri.parse(baseUrl));

@@ -76,7 +76,7 @@ export class ExamenesPage implements OnInit {
 
   descargarExamen() {
     const link = document.createElement('a');
-    link.href = 'assets/img/Xray_share.jpg';  
+    link.href = 'assets/img/Xray_share.jpeg';  
     link.download = 'examen.jpg';             
     document.body.appendChild(link);
     link.click();
